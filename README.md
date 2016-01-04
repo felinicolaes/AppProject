@@ -17,7 +17,7 @@
 - Tags: vega, time, occasion
 
 #####Gap
-Food waste is currently a big problem in the world. The average Dutch person throws away 50 kilos (150 euros or 14 procent of our bought food or 30% of all food) in food every year. Making it easy to cook according to what you already have in your fridge will make cooking easier, better for the environment and cheaper!
+Food waste is currently a big problem in the world. The average Dutch person throws away 50 kilos of food (150 euros or 14 procent of our bought food/30% of all food) every year. Making it easy to cook according to what you already have in your fridge will make cooking easier, better for the environment and cheaper!
 
 ###Challenges
 I currently do not know SQL very well, so will work with that. I also have never worked with the sharing of files or taking pictures within an app. Another challenge is to make the app so that it will calculate the set of possible recipes within a short time period.

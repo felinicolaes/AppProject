@@ -9,7 +9,7 @@
 - Adding and editing your own recipes
 - Adding pictures and notes to your recipes
 - Adding optional ingredients and substitutions <br/>
-#####Optional
+####Optional
 - Share recipes
 - Set standard substitutions (soy sauce-ketjap, penne-farfalle)
 - Make shopping list

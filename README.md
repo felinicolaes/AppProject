@@ -4,26 +4,27 @@
 
 > This app is more than your average recipe book: it will make it possible to enter ingredients you want to use this day and will search for added recipes with these ingredients.
 
-####Features
+###Features
 - Searching recipes by ingredient
 - Adding and editing your own recipes
 - Adding pictures and notes to your recipes
 - Adding optional ingredients and substitutions
 
-####Optional features
+#####Optional features
 - Share recipes
 - Set standard substitutions (soy sauce-ketjap, penne-farfalle)
 - Make shopping list
 - Tags: vega, time, occasion
 
-Gap: Food waste is currently a big problem in the world. The average Dutch person throws away 50 kilos (150 euros or 14 procent of our bought food or 30% of all food) in food every year. Making it easy to cook according to what you already have in your fridge will make cooking easier, better for the environment and cheaper!
+#####Gap
+Food waste is currently a big problem in the world. The average Dutch person throws away 50 kilos (150 euros or 14 procent of our bought food or 30% of all food) in food every year. Making it easy to cook according to what you already have in your fridge will make cooking easier, better for the environment and cheaper!
 
-####Challenges
+###Challenges
 I currently do not know SQL very well, so will work with that. I also have never worked with the sharing of files or taking pictures within an app. Another challenge is to make the app so that it will calculate the set of possible recipes within a short time period.
 
 I have added several optional features which I will implement if there is time left.
 
-####Sketches
+###Sketches
 ![classes](/doc/classes.png)
 
 mainActivity: Main activity, from which the user can search by ingredient
@@ -36,14 +37,14 @@ recipeActivity: Here, the user can see an overview of the whole recipe
 
 recipeListActivity: A list with all the possible recipes
 
-####Data set
+###Data set
 All the recipes have to be added yourself, because people generally already have a lot of recipes they enjoy cooking and making recipes they already know they'll like. The adding of new recipes will be made as easy to use as possible.
 
 The ingredients have to be typed by hand, but instead of typing out the whole recipe, a picture of the recipe will suffice. This will make the process of adding new recipes a lot easier. Pictures of the finished dish can also be added.
 
 If there is time left, I will make a way to share recipes with friends.
 
-####Example
+###Example
 
 An example of a recipe can be:<br />
 <b>Spanish Tortilla</b> <br />

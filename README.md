@@ -8,7 +8,7 @@
 - Searching recipes by ingredient
 - Adding and editing your own recipes
 - Adding pictures and notes to your recipes
-- Adding optional ingredients and substitutions
+- Adding optional ingredients and substitutions <br/>
 #####Optional
 - Share recipes
 - Set standard substitutions (soy sauce-ketjap, penne-farfalle)

@@ -4,7 +4,7 @@
 
 > This app is more than your average recipe book: it will make it possible to enter ingredients you want to use this day and will search for added recipes with these ingredients.
 
-###Features
+###Features (this will be my MVP)
 - Searching recipes by ingredient
 - Adding and editing your own recipes
 - Adding pictures and notes to your recipes

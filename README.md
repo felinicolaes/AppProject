@@ -1,5 +1,6 @@
 # Empty Your Fridge App
-## Feli Nicolas, 10542442, felinicolaes@hotmail.com
+Feli Nicolaes, 10542442, felinicolaes@hotmail.com
+---------------------
 
 Food waste is currently a big problem in the world. The average Dutch person throws away 50 kilos (150 euros or 14 procent of our bought food) in food every year.
 This app is more than your average recipe book: it will make it possible to enter ingredients you want to use this day and will search for added recipes with these ingredients.
@@ -10,8 +11,8 @@ All the recipes have to be added yourself, because people generally already have
 
 The ingredients have to be typed by hand, but instead of typing out the whole recipe, a picture of the recipe will suffice. This will make the process of adding new recipes a lot easier. Pictures of the finished dish can also be added.
 
-An example of a recipe can be:
-<b>Spanish Tortilla</b>
+An example of a recipe can be:<br />
+<b>Spanish Tortilla</b> <br />
 - 3 egg
 - 2 potatoe
 - 1 garlic clove

@@ -34,7 +34,7 @@ seeRecipeActivity: Here, the user can see an overview of the whole recipe<br/>
 recipeListActivity: A list with all the possible recipes<br/>
 typeRecipeActivity: A place to type the recipe or notes<br/>
 
-![classes](/doc/classes.png)
+![sketches](/doc/sketches.png)
 
 ###Data set
 All the recipes have to be added yourself, because people generally already have a lot of recipes they enjoy cooking and making recipes they already know they'll like. The adding of new recipes will be made as easy to use as possible.

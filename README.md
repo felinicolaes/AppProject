@@ -27,15 +27,14 @@ I have added several optional features which I will implement if there is time l
 ###Sketches
 ![classes](/doc/classes.png)
 
-mainActivity: Main activity, from which the user can search by ingredient
+mainActivity: Main activity, from which the user can search by ingredient <br/>
+addIngredientActivity: The user can add an ingredient to add to their search, here the amount can also be added and choose whether it is an optional ingredient<br/>
+addRecipeActivity: Add a new recipe, including a name, ingredients, the recipe (in text or picture) and other notes or pictures<br/>
+seeRecipeActivity: Here, the user can see an overview of the whole recipe<br/>
+recipeListActivity: A list with all the possible recipes<br/>
+typeRecipeActivity: A place to type the recipe or notes<br/>
 
-addIngredientActivity: The user can add an ingredient to add to their search, here the amount can also be added and choose whether it is an optional ingredient
-
-addRecipeActivity: Add a new recipe, including a name, ingredients, the recipe (in text or picture) and other notes or pictures
-
-recipeActivity: Here, the user can see an overview of the whole recipe
-
-recipeListActivity: A list with all the possible recipes
+![classes](/doc/classes.png)
 
 ###Data set
 All the recipes have to be added yourself, because people generally already have a lot of recipes they enjoy cooking and making recipes they already know they'll like. The adding of new recipes will be made as easy to use as possible.

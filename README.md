@@ -2,7 +2,7 @@
 ###Feli Nicolaes, 10542442, felinicolaes@hotmail.com
 ---------------------
 
-> This app is more than your average recipe book: it will make it possible to enter ingredients you want to use this day and will search for added recipes with these ingredients.
+> This app (Android version 4.4.2 or higher) is more than your average recipe book: it will make it possible to enter ingredients you want to use this day and will search for added recipes with these ingredients.
 
 ###Features (this will be my MVP)
 - Searching recipes by ingredient

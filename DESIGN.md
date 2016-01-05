@@ -4,6 +4,20 @@
 
 > This app is more than your average recipe book: it will make it possible to enter ingredients you want to use this day and will search for added recipes with these ingredients.
 
+##Features (this will be my MVP)
+- Searching recipes by ingredient
+- Adding and editing your own recipes
+- Adding pictures and notes to your recipes
+- Adding optional ingredients and substitutions
+
+####Optional features
+
+- Share recipes
+- Set standard substitutions (soy sauce-ketjap, penne-farfalle)
+- Automatically make shopping list
+- Add tags: vegetarian, time, occasion etc.
+
+
 ##Classes and public methods
 ![classes](/doc/classes.png)
 ### Recipe
@@ -39,6 +53,7 @@ All the removeX()-functions just remove the things you add with the addX()-funct
 **filterList(ArrayList&lt;Recipe> allRecipe, ArrayList&lt;String> necIngredient)** returns an ArrayList&lt;Recipe> containing all recipes with these ingredients
 
 ##Sketches of UIs
+![activities](/doc/activities.png)
 **mainActivity**: Main activity, from which the user can search by ingredient. From here, the user goes to the recipeListActivity by clicking the search-button. The user will go to to the addIngredientActivity if they click the button for adding an ingredient.
 
 **addIngredientActivity**: The user can add an ingredient to add to their search, here the amount can also be added and choose whether it is an optional ingredient. If they click add, they will go to the previous screen (mainActivity of addRecipeActivity).

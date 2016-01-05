@@ -1,34 +1,44 @@
-## Empty Your Fridge App
-###Feli Nicolaes, 10542442, felinicolaes@hotmail.com
+# Empty Your Fridge App
+##Feli Nicolaes, 10542442, felinicolaes@hotmail.com
 ---------------------
 
 > This app is more than your average recipe book: it will make it possible to enter ingredients you want to use this day and will search for added recipes with these ingredients.
 
-###Classes and public methods
+##Classes and public methods
 ![classes](/doc/classes.png)
-#### Recipe
-necIngredient: ArrayList &lt;String> containing all necessary ingredients for a certain recipe. Example: ["egg", "potatoe", "garlic", "salt", "oil", "green beans/broccoli"]<br/>
-optIngredient: ArrayList&lt;String> containing all optional ingredients. Example: ["onion"]<br/>
-name: String containing the name of the recipe. Example: "Spanish Tortilla"<br/>
-pictArray: ArrayList&lt;Img> containing all pictures taken of the recipe<br/>
-noteArray: ArrayList&lt;String> containing all notes from the recipe<br/>
-recipe: String or Image containing the actual recipe or a picture thereof.
+### Recipe
+**necIngredient**: ArrayList &lt;String> containing all necessary ingredients for a certain recipe. Example: ["egg", "potatoe", "garlic", "salt", "oil", "green beans/broccoli"]<br/>
+**optIngredient**: ArrayList&lt;String> containing all optional ingredients. Example: ["onion"]<br/>
+**name**: String containing the name of the recipe. Example: "Spanish Tortilla"<br/>
+**pictArray**: ArrayList&lt;Img> containing all pictures taken of the recipe<br/>
+**noteArray**: ArrayList&lt;String> containing all notes from the recipe<br/>
+**recipe**: String or Image containing the actual recipe or a picture thereof.
 
-getIngredient() gets an Array&lt;String> containing the ingredients of the chosen recipe (both necessary and optional)<br/>
-getNecIngredient() gets an ArrayList &lt;String> containing the necessary ingredients of the chosen recipe<br/>
-getPosIngredient() gets an ArrayList &lt;String> containing the possible ingredients of the chosen recipe <br/>
-getName() gets a String with the name of the chosen recipe <br/>
-getPics() gets an ArrayList&lt;Img> with the pictures of the chosen recipe <br/>
-getNotes() gets an ArrayList&lt;String> containing the notes of the chosen recipe <br/>
-getRecipe() gets the Img or String containing the recipe of the chosen recipe <br/>
+**getIngredient()** gets an Array&lt;String> containing the ingredients of the chosen recipe (both necessary and optional)<br/>
+**getNecIngredient()** gets an ArrayList &lt;String> containing the necessary ingredients of the chosen recipe<br/>
+**getPosIngredient()** gets an ArrayList &lt;String> containing the possible ingredients of the chosen recipe <br/>
+**getName()** gets a String with the name of the chosen recipe <br/>
+**getPics()** gets an ArrayList&lt;Img> with the pictures of the chosen recipe <br/>
+**getNotes()** gets an ArrayList&lt;String> containing the notes of the chosen recipe <br/>
+**getRecipe()** gets the Img or String containing the recipe of the chosen recipe <br/>
 
-####search
-posRecipe: ArrayList&lt;Recipe> of all the possible recipes
+All the setX()-functions just set the things you get with the getX()-functions
 
-getAllRecipe() returns an ArrayList&lt;Recipe> containing all recipes<br/>
-filterList(ArrayList&lt;Recipe> allRecipe, ArrayList&lt;String> necIngredient) returns an ArrayList&lt;Recipe> containing all recipes with these ingredients
+**addNecIngredient(String necIngredient)** adds an ingredient to the ArrayList&lt;String> necIngredient <br/>
+**addPosIngredient(String posIngredient)** adds an ingredient to the ArrayList&lt;String> posIngredient <br/>
+**addPicture(Img picture)** adds a picture to the ArrayList&lt;Img> pictArray <br/>
+**addNote(String note)** adds a note to the ArrayList&lt;String> noteArray <br/>
 
-###Sketches of UIs
+All the removeX()-functions just remove the things you add with the addX()-functions
+
+
+###Search
+**posRecipe**: ArrayList&lt;Recipe> of all the possible recipes
+
+**getAllRecipe()** returns an ArrayList&lt;Recipe> containing all recipes<br/>
+**filterList(ArrayList&lt;Recipe> allRecipe, ArrayList&lt;String> necIngredient)** returns an ArrayList&lt;Recipe> containing all recipes with these ingredients
+
+##Sketches of UIs
 **mainActivity**: Main activity, from which the user can search by ingredient. From here, the user goes to the recipeListActivity by clicking the search-button. The user will go to to the addIngredientActivity if they click the button for adding an ingredient.
 
 **addIngredientActivity**: The user can add an ingredient to add to their search, here the amount can also be added and choose whether it is an optional ingredient. If they click add, they will go to the previous screen (mainActivity of addRecipeActivity).
@@ -43,5 +53,5 @@ filterList(ArrayList&lt;Recipe> allRecipe, ArrayList&lt;String> necIngredient) r
 
 ![sketches](/doc/sketches.png)
 
-###APIs and frameworks
+##APIs and frameworks
 I will use an API for the optional feature that will able you to share your recipes. Because this is optional, I will not do much research yet.

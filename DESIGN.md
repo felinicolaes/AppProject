@@ -53,7 +53,7 @@ All the removeX()-functions just remove the things you add with the addX()-funct
 **filterList(ArrayList&lt;Recipe> allRecipe, ArrayList&lt;String> necIngredient)** returns an ArrayList&lt;Recipe> containing all recipes with these ingredients
 
 ##Sketches of UIs
-![activities](/doc/activities.png)
+![activities](/doc/activities.PNG)
 **mainActivity**: Main activity, from which the user can search by ingredient. From here, the user goes to the recipeListActivity by clicking the search-button. The user will go to to the addIngredientActivity if they click the button for adding an ingredient.
 
 **addIngredientActivity**: The user can add an ingredient to add to their search, here the amount can also be added and choose whether it is an optional ingredient. If they click add, they will go to the previous screen (mainActivity of addRecipeActivity).

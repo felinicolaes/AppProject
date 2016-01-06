@@ -5,17 +5,17 @@
 > This app is more than your average recipe book: it will make it possible to enter ingredients you want to use this day and will search for added recipes with these ingredients.
 
 ##Features (this will be my MVP)
-- Searching recipes by ingredient
-- Adding and editing your own recipes
-- Adding pictures and notes to your recipes
-- Adding optional ingredients and substitutions
+- The user can search recipes by ingredient
+- The user can add and edit your own recipes
+- The user can add pictures and notes to your recipes
+- The user can add optional ingredients and substitutions
 
 ####Optional features
 
-- Share recipes
-- Set standard substitutions (soy sauce-ketjap, penne-farfalle)
-- Automatically make shopping list
-- Add tags: vegetarian, time, occasion etc.
+- The user can share recipes
+- The user can set standard substitutions (soy sauce-ketjap, penne-farfalle)
+- The app will automatically make shopping list
+- The user can add tags (for example: vegetarian, time, occasion etc.)
 
 
 ##Classes and public methods
@@ -69,4 +69,6 @@ All the removeX()-functions just remove the things you add with the addX()-funct
 ![sketches](/doc/sketches.png)
 
 ##APIs and frameworks
+SQLlite for managing the database with recipes.
+
 I will use an API for the optional feature that will able you to share your recipes. Because this is optional, I will not do much research yet.

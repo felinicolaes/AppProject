@@ -1,20 +1,86 @@
 package mprog.nl.emptyyourfridge;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    ArrayList<String> items;
+    ListView listView;
+    EditText addIngredient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        addIngredient = (EditText) findViewById(R.id.editText);
+        items = new ArrayList<String>();
+
+        makeList();
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long id) {
+                deleteItem(position);
+                return false;
+            }
+        });
+    }
+
+    public void makeList() {
+        listView = (ListView) findViewById(R.id.listView);
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,android.R.id.text1, items);
+        listView.setAdapter(adapter);
+    }
+
+    public void clickAdd(View view) {
+        if (!addIngredient.getText().toString().equals("")) {
+            items.add(addIngredient.getText().toString());
+            makeList();
+            hideKeyboard();
+            addIngredient.setText("");
+        }
+    }
+
+    public void deleteItem(int i) {
+        items.remove(i);
+        makeList();
+        Toast.makeText(getApplicationContext(), "Item removed", Toast.LENGTH_LONG).show();
+    }
+
+    public void addRecipeButton(View view) {
+        Intent addRecipeIntent = new Intent(this, addRecipeActivity.class);
+        addRecipeIntent.putExtra("ActivityName", "MainActivity");
+        startActivity(addRecipeIntent);
+    }
+
+    public void searchButton(View view) {
+        Intent recipeListIntent = new Intent(this, recipeListActivity.class);
+        startActivity(recipeListIntent);
+    }
+
+
+    //Code copied from http://stackoverflow.com/questions/1109022/close-hide-the-android-soft-keyboard
+    public void hideKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     @Override

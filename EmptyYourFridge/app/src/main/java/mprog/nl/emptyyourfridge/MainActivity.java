@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -29,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
 
         addIngredient = (EditText) findViewById(R.id.editText);
         items = new ArrayList<String>();
+
+        Bundle extra = getIntent().getExtras();
+        if (extra != null) {
+            items.add(extra.getString("IngredientName"));
+        }
 
         makeList();
 
@@ -62,9 +68,17 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Item removed", Toast.LENGTH_LONG).show();
     }
 
+    public void addIngredientButton(View view) {
+        Intent addIngredientIntent = new Intent(this, addIngredientActivity.class);
+        addIngredientIntent.putExtra("ActivityName", "MainActivity");
+        addIngredientIntent.putExtra("RecipeName", "");
+        startActivity(addIngredientIntent);
+    }
+
     public void addRecipeButton(View view) {
         Intent addRecipeIntent = new Intent(this, addRecipeActivity.class);
         addRecipeIntent.putExtra("ActivityName", "MainActivity");
+        addRecipeIntent.putExtra("RecipeName", "");
         startActivity(addRecipeIntent);
     }
 

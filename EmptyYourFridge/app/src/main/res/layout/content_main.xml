@@ -80,5 +80,14 @@
         android:layout_above="@+id/linearLayout"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+"
+        android:id="@+id/plusIngredient"
+        android:layout_alignBottom="@+id/listView"
+        android:layout_alignEnd="@+id/listView"
+        android:onClick="addIngredientButton" />
+
 
 </RelativeLayout>

@@ -9,13 +9,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="mprog.nl.emptyyourfridge.recipeListActivity">
 
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="450dp"
+        android:id="@+id/listView"
+        android:layout_alignParentEnd="true"
+        android:clickable="true" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="hoi"
-        android:id="@+id/hoi"
-        android:layout_alignParentTop="true"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Long-press an item to remove it"
+        android:id="@+id/textRemove"
+        android:layout_below="@+id/listView"
         android:layout_centerHorizontal="true" />
 
 

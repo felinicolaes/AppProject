@@ -11,7 +11,11 @@
 - Chose the different classes
 
 ## Day 3
-- daily standup
 - research SQL lite, have to watch Jullians tutorial
 - improve design sketches
 - started mainActivity, addRecipeActivity, recipeListActivity and connections between those
+
+##Day 4
+- made all activities+design+transitions between them
+- To Do: make keyboard hidden at start in mainActivity and AddRecipeActivity
+- To Do: fix 'sure you want to delete' alert in recipeListActivity

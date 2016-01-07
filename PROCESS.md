@@ -16,6 +16,6 @@
 - started mainActivity, addRecipeActivity, recipeListActivity and connections between those
 
 ##Day 4
-- made all activities+design+transitions between them
+- made all activities+design+transitions/connections between them
 - To Do: make keyboard hidden at start in mainActivity and AddRecipeActivity
 - To Do: fix 'sure you want to delete' alert in recipeListActivity

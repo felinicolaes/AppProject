@@ -10,7 +10,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:label="Empty Your Fridge"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,11 +19,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".recipeListActivity" />
-        <activity android:name=".addRecipeActivity" />
-        <activity android:name=".seeRecipeActivity" />
-        <activity android:name=".typeRecipeActivity" />
-        <activity android:name=".addIngredientActivity"></activity>
+        <activity android:name=".recipeListActivity"
+            android:screenOrientation="portrait"
+            android:label="Recipe List">
+        </activity>
+        <activity android:name=".addRecipeActivity"
+            android:screenOrientation="portrait"
+            android:label="Edit Recipe">
+        </activity>
+        <activity android:name=".seeRecipeActivity"
+            android:screenOrientation="portrait"
+            android:label="See Recipe">
+        </activity>
+        <activity android:name=".typeRecipeActivity"
+            android:screenOrientation="portrait"
+            android:label="Type Recipe">
+        </activity>
+        <activity android:name=".addIngredientActivity"
+            android:screenOrientation="portrait"
+            android:label="Add Ingredient">
+        </activity>
     </application>
 
 </manifest>

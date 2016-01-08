@@ -19,3 +19,9 @@
 - made all activities+design+transitions/connections between them
 - To Do: make keyboard hidden at start in mainActivity and AddRecipeActivity
 - To Do: fix 'sure you want to delete' alert in recipeListActivity
+
+##Day 5
+- keyboard no longer automatically pops up
+- alert added in recipeListActivity
+- read more SQLite tutorials
+- made working database (not fully implemented, but a start)

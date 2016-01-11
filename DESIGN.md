@@ -7,11 +7,11 @@
 ##Features (this will be my MVP)
 - The user can search recipes by ingredient
 - The user can add and edit your own recipes
-- The user can add pictures and notes to your recipes
+- The user can add notes to your recipes
 - The user can add optional ingredients and substitutions
 
 ####Optional features
-
+- The user can add pictures as notes and recipe
 - The user can share recipes
 - The user can set standard substitutions (soy sauce-ketjap, penne-farfalle)
 - The app will automatically make shopping list

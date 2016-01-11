@@ -28,14 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        addIngredient = (EditText) findViewById(R.id.editText);
         items = new ArrayList<String>();
-
-        Bundle extra = getIntent().getExtras();
-        if (extra != null) {
-            items.add(extra.getString("IngredientName"));
-        }
-
         makeList();
         
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -47,19 +40,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void makeList() {
-        listView = (ListView) findViewById(R.id.listView);
+        listView = (ListView) findViewById(R.id.ingredients);
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,android.R.id.text1, items);
         listView.setAdapter(adapter);
-    }
-
-    public void clickAdd(View view) {
-        if (!addIngredient.getText().toString().equals("")) {
-            items.add(addIngredient.getText().toString());
-            makeList();
-            hideKeyboard();
-            addIngredient.setText("");
-        }
     }
 
     public void deleteItem(int i) {
@@ -85,16 +69,6 @@ public class MainActivity extends AppCompatActivity {
     public void searchButton(View view) {
         Intent recipeListIntent = new Intent(this, recipeListActivity.class);
         startActivity(recipeListIntent);
-    }
-
-
-    //Code copied from http://stackoverflow.com/questions/1109022/close-hide-the-android-soft-keyboard
-    public void hideKeyboard() {
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
     }
 
     @Override

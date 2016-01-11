@@ -25,3 +25,11 @@
 - alert added in recipeListActivity
 - read more SQLite tutorials
 - made working database (not fully implemented, but a start)
+
+##Day 6
+- further implement database
+    - can now add and edit recipes (recipe, name, notes) in the app
+    - can show recipe, name and notes of existing recipe
+    - can show list of all recipes
+    - can delete recipes
+- currently always have to enter recipename first, then recipe and notes. Change this and check for double names

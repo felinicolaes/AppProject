@@ -12,7 +12,7 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="450dp"
-        android:id="@+id/listView"
+        android:id="@+id/ingredients"
         android:layout_alignParentEnd="true"
         android:clickable="true" />
 
@@ -22,7 +22,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Long-press an item to remove it"
         android:id="@+id/textRemove"
-        android:layout_below="@+id/listView"
+        android:layout_below="@+id/ingredients"
         android:layout_centerHorizontal="true" />
 
 

@@ -28,7 +28,7 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="300dp"
-        android:id="@+id/listView"
+        android:id="@+id/ingredients"
         android:layout_below="@+id/ingredient"
         android:layout_alignStart="@+id/ingredient"
         android:layout_above="@+id/checkBox" />

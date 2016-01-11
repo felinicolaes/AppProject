@@ -12,12 +12,16 @@ public class Recipe {
     ArrayList<String> posIngredients;
     String name;
     ArrayList<Image> pictArray;
-    ArrayList<String> noteArray;
+    String notes;
     String recipe;
 
-    public Recipe(String name, String recipe) {
+    public Recipe(String name, String recipe, String notes) {
         this.name = name;
+        this.necIngredients = new ArrayList<String>();
+        this.posIngredients = new ArrayList<String>();
         this.recipe = recipe;
+        this.pictArray = new ArrayList<Image>();
+        this.notes = notes;
     }
 
     public Recipe(String name, ArrayList<String> necIngredients, ArrayList<String> posIngredients,
@@ -27,7 +31,7 @@ public class Recipe {
         this.posIngredients = posIngredients;
         this.recipe = recipe;
         this.pictArray = new ArrayList<Image>();
-        this.noteArray = new ArrayList<String>();
+        this.notes = "";
     }
 
     /*
@@ -55,8 +59,8 @@ public class Recipe {
         return pictArray;
     }
 
-    public ArrayList<String> getNotes() {
-        return noteArray;
+    public String getNotes() {
+        return notes;
     }
 
     public String getRecipe() {
@@ -66,27 +70,27 @@ public class Recipe {
     /*
         SET FUNCTIONS
      */
-    public void getNecIngredient(ArrayList<String> necIngredients) {
+    public void setNecIngredient(ArrayList<String> necIngredients) {
         this.necIngredients = necIngredients;
     }
 
-    public void getPosIngredient(ArrayList<String> posIngredients) {
+    public void setPosIngredient(ArrayList<String> posIngredients) {
         this.posIngredients = posIngredients;
     }
 
-    public void getName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public void getPics(ArrayList<Image> pictArray) {
+    public void setPics(ArrayList<Image> pictArray) {
         this.pictArray = pictArray;
     }
 
-    public void getNotes(ArrayList<String> noteArray) {
-        this.noteArray = noteArray;
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
-    public void getRecipe(String recipe) {
+    public void setRecipe(String recipe) {
         this.recipe = recipe;
     }
 
@@ -105,10 +109,6 @@ public class Recipe {
         pictArray.add(picture);
     }
 
-    public void addNote(String note) {
-        noteArray.add(note);
-    }
-
     /*
         REMOVE FUNCTTIONS
      */
@@ -123,10 +123,5 @@ public class Recipe {
     public void removePicture(Image picture) {
         pictArray.remove(picture);
     }
-
-    public void removeNote(String note) {
-        noteArray.remove(note);
-    }
-
 
 }

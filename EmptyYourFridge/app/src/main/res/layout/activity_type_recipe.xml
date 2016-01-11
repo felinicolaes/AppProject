@@ -26,6 +26,14 @@
         android:layout_below="@+id/kind"
         android:layout_above="@+id/save">
 
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/mainText"
+            android:layout_below="@+id/kind"
+            android:layout_alignEnd="@+id/scrollView2" />
     </ScrollView>
 
     <TextView
@@ -46,12 +54,4 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:layout_below="@+id/kind"
-        android:layout_alignEnd="@+id/scrollView2" />
 </RelativeLayout>

@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,7 +24,7 @@ public class recipeListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
-        listView = (ListView) findViewById(R.id.listView);
+        listView = (ListView) findViewById(R.id.ingredients);
         recipes = new ArrayList<Recipe>();
         items = new ArrayList<String>();
 
@@ -44,12 +43,9 @@ public class recipeListActivity extends AppCompatActivity {
         });
 
         db = new DatabaseHandler(this);
-        // Inserting Recipes
-        db.addRecipe(new Recipe("Ravioli", "1"));
-        db.addRecipe(new Recipe("Friet met friet", "2"));
-        db.addRecipe(new Recipe("Tortilla", "3"));
-        db.addRecipe(new Recipe("Pasta met kip", "4"));
-
+   //     db.addRecipe(new Recipe("Kip met friet", "Bak kip alles leuk", "Vergeet niet ook friet"));
+   //     db.addRecipe(new Recipe("Kip met rijst", "Bak kip alles leuk", "Vergeet niet ook rijst"));
+   //     db.addRecipe(new Recipe("Kip met pasta", "Bak kip alles leuk", "Vergeet niet ook pasta"));
 
         makeList();
     }

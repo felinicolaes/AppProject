@@ -29,6 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Table Columns names
     private static final String KEY_NAME = "name";
     private static final String KEY_RECIPE = "recipe";
+    private static final String KEY_NOTES = "notes";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -38,7 +39,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_RECIPES_TABLE = "CREATE TABLE " + TABLE_RECIPES + "(" + KEY_NAME + " TEXT,"
-                + KEY_RECIPE + " TEXT" + ")";
+                + KEY_RECIPE + " TEXT," + KEY_NOTES + " TEXT" + ")";
         db.execSQL(CREATE_RECIPES_TABLE);
     }
 
@@ -58,6 +59,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, recipe.getName());
         values.put(KEY_RECIPE, recipe.getRecipe());
+        values.put(KEY_NOTES, recipe.getNotes());
 
         // Inserting Row
         db.insert(TABLE_RECIPES, null, values);
@@ -68,12 +70,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_RECIPES, new String[]{
-                        KEY_NAME, KEY_RECIPE}, KEY_NAME + "=?",
+                        KEY_NAME, KEY_RECIPE, KEY_NOTES}, KEY_NAME + "=?",
                 new String[]{String.valueOf(name)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
-        Recipe recipe = new Recipe(cursor.getString(1), cursor.getString(2));
+        Recipe recipe = new Recipe(cursor.getString(0), cursor.getString(1), cursor.getString(2));
         return recipe;
     }
 
@@ -88,7 +90,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                Recipe recipe = new Recipe(cursor.getString(0), cursor.getString(1));
+                Recipe recipe = new Recipe(cursor.getString(0), cursor.getString(1), cursor.getString(2));
                 // Adding recipe to list
                 recipeList.add(recipe);
             } while (cursor.moveToNext());
@@ -98,27 +100,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return recipeList;
     }
 
-    public int updateRecipe(Recipe recipe) {
+    public int updateRecipe(String oldName, Recipe recipe) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, recipe.getName());
         values.put(KEY_RECIPE, recipe.getRecipe());
+        values.put(KEY_NOTES, recipe.getNotes());
 
         // updating row
         return db.update(TABLE_RECIPES, values, KEY_NAME + " = ?",
-                new String[] { String.valueOf(recipe.getName()) });
+                new String[] { String.valueOf(oldName) });
     }
 
     public void deleteRecipe(Recipe recipe) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_RECIPES, KEY_NAME + " = ?",
-                new String[] { String.valueOf(recipe.getName()) });
+                new String[]{String.valueOf(recipe.getName())});
         db.close();
     }
-
-
-
-
 
 }

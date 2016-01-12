@@ -27,7 +27,7 @@ public class Recipe {
         this.necGson = new Gson();
         this.necIngredients = necGson.toJson(empty);
         this.posGson = new Gson();
-        this.necIngredients = posGson.toJson(empty);
+        this.posIngredients = posGson.toJson(empty);
         this.recipe = recipe;
         this.pictArray = "";
         this.notes = notes;

@@ -52,6 +52,7 @@ public class recipeListActivity extends AppCompatActivity {
     //    db.addRecipe(new Recipe("Kip met friet", "Bak kip alles leuk", "Vergeet niet ook friet", necIngr, posIngr));
    //     db.addRecipe(new Recipe("Kip met rijst", "Bak kip alles leuk", "Vergeet niet ook rijst", necIngr, posIngr));
   //      db.addRecipe(new Recipe("Kip met pasta", "Bak kip alles leuk", "Vergeet niet ook pasta", necIngr, posIngr));
+        db.addRecipe(new Recipe("Kip met hopla", "Bak kip alles leuk", "Vergeet niet ook hopla"));
 
         makeList();
     }

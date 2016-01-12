@@ -14,6 +14,7 @@ public class addIngredientActivity extends AppCompatActivity {
     String prevActivity;
     String recipeName;
     EditText edit;
+    CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +25,7 @@ public class addIngredientActivity extends AppCompatActivity {
 
         Bundle extra = getIntent().getExtras();
         prevActivity = extra.getString("ActivityName");
-        CheckBox checkBox = (CheckBox)findViewById(R.id.checkBox);
+        checkBox = (CheckBox)findViewById(R.id.checkBox);
         if (prevActivity.equals("MainActivity")) {
             checkBox.setVisibility(View.INVISIBLE);
         } else {
@@ -39,6 +40,11 @@ public class addIngredientActivity extends AppCompatActivity {
             startActivity(mainIntent);
         } else {
             Intent addRecipeIntent = new Intent(this, addRecipeActivity.class);
+            if (checkBox.isChecked()) {
+                addRecipeIntent.putExtra("Status", "optional");
+            } else {
+                addRecipeIntent.putExtra("Status", "necessary");
+            }
             addRecipeIntent.putExtra("RecipeName", recipeName);
             addRecipeIntent.putExtra("IngredientName", edit.getText().toString());
             addRecipeIntent.putExtra("ActivityName", "addIngredientActivity");

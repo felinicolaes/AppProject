@@ -15,13 +15,13 @@ import java.util.ArrayList;
 
 public class addRecipeActivity extends AppCompatActivity {
 
-    ArrayList<String> items;
+    ArrayList<String> ingredients;
     ListView listView;
     EditText nameText;
     String prevActivity;
     DatabaseHandler db;
     String recipeName;
-    String recipe;
+    String recipeText;
     String notes;
 
     @Override
@@ -32,19 +32,18 @@ public class addRecipeActivity extends AppCompatActivity {
         db = new DatabaseHandler(this);
         Bundle extra = getIntent().getExtras();
         nameText = (EditText) findViewById(R.id.name);
-        items = new ArrayList<String>();
+        listView = (ListView) findViewById(R.id.ingredients);
 
         prevActivity = extra.getString("ActivityName");
         recipeName = extra.getString("RecipeName");
         nameText.setText(recipeName, TextView.BufferType.EDITABLE);
 
-
         if (extra.containsKey("IngredientName")) {
-            items.add(extra.getString("IngredientName"));
+            addItem(extra.getString("IngredientName"), extra.getString("Status"));
         } else if (extra.containsKey("notes")) {
             notes = extra.getString("notes");
         } else if (extra.containsKey("recipe")) {
-            recipe = extra.getString("recipe");
+            recipeText = extra.getString("recipe");
         }
 
         makeList();
@@ -59,19 +58,39 @@ public class addRecipeActivity extends AppCompatActivity {
 
     public void makeList() {
         listView = (ListView) findViewById(R.id.ingredients);
+        if (!prevActivity.equals("MainActivity")) {
+            ingredients = db.getRecipe(recipeName).getAllIngredientPrint();
+        } else {
+            ingredients = new ArrayList<String>();
+        }
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,android.R.id.text1, items);
+                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,android.R.id.text1, ingredients);
         listView.setAdapter(adapter);
     }
 
+    public void addItem(String itemName, String optionality) {
+        Recipe recipe = db.getRecipe(recipeName);
+        if (optionality.equals("necessary")) {
+            recipe.addNecIngredient(itemName);
+        } else {
+            recipe.addPosIngredient(itemName);
+        }
+        db.updateRecipe(recipeName, recipe);
+    }
 
     public void deleteItem(int i) {
-        items.remove(i);
+        Recipe recipe = db.getRecipe(recipeName);
+        recipe.removeIngredient(recipe.getAllIngredient().get(i));
+        db.updateRecipe(recipeName, recipe);
         makeList();
         Toast.makeText(getApplicationContext(), "Item removed", Toast.LENGTH_LONG).show();
     }
 
     public void addIngredientButton(View view) {
+        if (prevActivity.equals("MainActivity")) {
+            db.addRecipe(new Recipe(nameText.getText().toString(), "", ""));
+            Toast.makeText(getApplicationContext(), "Recipe added", Toast.LENGTH_LONG).show();
+        }
         Intent addIngredientIntent = new Intent(this, addIngredientActivity.class);
         addIngredientIntent.putExtra("ActivityName", "addRecipeActivity");
         addIngredientIntent.putExtra("RecipeName", nameText.getText().toString());

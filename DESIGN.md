@@ -8,9 +8,10 @@
 - The user can search recipes by ingredient
 - The user can add and edit your own recipes
 - The user can add notes to your recipes
-- The user can add optional ingredients and substitutions
+- The user can add optional ingredients
 
 ####Optional features
+- The user can add substitutions for ingredients and search accordingly
 - The user can add pictures as notes and recipe
 - The user can share recipes
 - The user can set standard substitutions (soy sauce-ketjap, penne-farfalle)
@@ -72,3 +73,4 @@ All the removeX()-functions just remove the things you add with the addX()-funct
 SQLlite for managing the database with recipes.
 
 I will use an API for the optional feature that will able you to share your recipes. Because this is optional, I will not do much research yet.
+ 

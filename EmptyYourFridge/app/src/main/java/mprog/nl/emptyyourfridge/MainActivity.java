@@ -2,12 +2,12 @@ package mprog.nl.emptyyourfridge;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -15,12 +15,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<String> items;
     ListView listView;
-    EditText addIngredient;
 
 
     @Override
@@ -29,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         items = new ArrayList<String>();
+        if (getIntent().getExtras() != null) {
+            Bundle extra = getIntent().getExtras();
+            items.add(extra.getString("IngredientName"));
+        }
         makeList();
         
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

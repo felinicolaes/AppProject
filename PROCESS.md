@@ -27,9 +27,18 @@
 - made working database (not fully implemented, but a start)
 
 ##Day 6
+- decided to put arraylists in gsons
+- decided to put notes in String, not arraylistkj
 - further implement database
     - can now add and edit recipes (recipe, name, notes) in the app
     - can show recipe, name and notes of existing recipe
     - can show list of all recipes
     - can delete recipes
-- currently always have to enter recipename first, then recipe and notes. Change this and check for double names
+- To Do: currently always have to enter recipename first, then recipe and notes. Change this and check for double names
+
+##Day 7
+- Implement gson
+    - change recipe-object
+    - change database
+    - link to listviews add/seeRecipeActivity
+- To Do: make so that ingredients mainscreen are saved

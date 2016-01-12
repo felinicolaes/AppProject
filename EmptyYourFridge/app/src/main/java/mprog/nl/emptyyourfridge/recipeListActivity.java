@@ -42,10 +42,16 @@ public class recipeListActivity extends AppCompatActivity {
             }
         });
 
+        ArrayList necIngr = new ArrayList<String>();
+        necIngr.add("kip");
+        necIngr.add("groente");
+        ArrayList posIngr = new ArrayList<String>();
+        posIngr.add("meer kip");
+
         db = new DatabaseHandler(this);
-   //     db.addRecipe(new Recipe("Kip met friet", "Bak kip alles leuk", "Vergeet niet ook friet"));
-   //     db.addRecipe(new Recipe("Kip met rijst", "Bak kip alles leuk", "Vergeet niet ook rijst"));
-   //     db.addRecipe(new Recipe("Kip met pasta", "Bak kip alles leuk", "Vergeet niet ook pasta"));
+    //    db.addRecipe(new Recipe("Kip met friet", "Bak kip alles leuk", "Vergeet niet ook friet", necIngr, posIngr));
+   //     db.addRecipe(new Recipe("Kip met rijst", "Bak kip alles leuk", "Vergeet niet ook rijst", necIngr, posIngr));
+  //      db.addRecipe(new Recipe("Kip met pasta", "Bak kip alles leuk", "Vergeet niet ook pasta", necIngr, posIngr));
 
         makeList();
     }

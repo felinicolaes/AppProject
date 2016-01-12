@@ -37,8 +37,8 @@
 - To Do: currently always have to enter recipename first, then recipe and notes. Change this and check for double names
 
 ##Day 7
-- Implement gson
+- Implement gson/ingredients
     - change recipe-object
     - change database
-    - link to listviews add/seeRecipeActivity
+    - can now add/edit/see ingredients
 - To Do: make so that ingredients mainscreen are saved

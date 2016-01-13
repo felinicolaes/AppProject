@@ -28,6 +28,7 @@ public class addIngredientActivity extends AppCompatActivity {
 
         editIngredient =  (EditText) findViewById(R.id.ingredient);
         editAmount =  (EditText) findViewById(R.id.amount);
+    //    editIngredient.setText("");
 
         Bundle extra = getIntent().getExtras();
         prevActivity = extra.getString("ActivityName");
@@ -52,22 +53,26 @@ public class addIngredientActivity extends AppCompatActivity {
     }
 
     public void addIngredientButton(View view) {
-        if (prevActivity.equals("MainActivity")) {
-            Intent mainIntent = new Intent(this, MainActivity.class);
-            mainIntent.putExtra("IngredientName", editIngredient.getText().toString());
-            startActivity(mainIntent);
+        if (editIngredient.getText().toString().equals("")) {
+            Toast.makeText(addIngredientActivity.this, "Please enter an ingredient", Toast.LENGTH_SHORT).show();
         } else {
-            Intent addRecipeIntent = new Intent(this, addRecipeActivity.class);
-            if (checkBox.isChecked()) {
-                addRecipeIntent.putExtra("Status", "optional");
+            if (prevActivity.equals("MainActivity")) {
+                Intent mainIntent = new Intent(this, MainActivity.class);
+                mainIntent.putExtra("IngredientName", editIngredient.getText().toString());
+                startActivity(mainIntent);
             } else {
-                addRecipeIntent.putExtra("Status", "necessary");
+                Intent addRecipeIntent = new Intent(this, addRecipeActivity.class);
+                if (checkBox.isChecked()) {
+                    addRecipeIntent.putExtra("Status", "optional");
+                } else {
+                    addRecipeIntent.putExtra("Status", "necessary");
+                }
+                addRecipeIntent.putExtra("RecipeName", recipeName);
+                addRecipeIntent.putExtra("IngredientName", editIngredient.getText().toString());
+                addRecipeIntent.putExtra("AmountName", editAmount.getText().toString());
+                addRecipeIntent.putExtra("ActivityName", "addIngredientActivity");
+                startActivity(addRecipeIntent);
             }
-            addRecipeIntent.putExtra("RecipeName", recipeName);
-            addRecipeIntent.putExtra("IngredientName", editIngredient.getText().toString());
-            addRecipeIntent.putExtra("AmountName", editAmount.getText().toString());
-            addRecipeIntent.putExtra("ActivityName", "addIngredientActivity");
-            startActivity(addRecipeIntent);
         }
     }
 

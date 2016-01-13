@@ -21,17 +21,22 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<String> items;
     ListView listView;
-
+    SharedPreferences settings;
+    String addedIngredient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        settings = getSharedPreferences("MyPrefsFile", 0);
 
         items = new ArrayList<String>();
         if (getIntent().getExtras() != null) {
             Bundle extra = getIntent().getExtras();
-            items.add(extra.getString("IngredientName"));
+            SharedPreferences.Editor editor = settings.edit();
+            addedIngredient = extra.getString("IngredientName");
+            editor.putString(addedIngredient, "ingredient");
+            editor.commit();
         }
         makeList();
         
@@ -43,7 +48,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void getPrevIngredients() {
+        Map<String, ?> allPrefs = settings.getAll();
+        items.clear();
+
+        for (Map.Entry<String, ?> entry : allPrefs.entrySet()) {
+            items.add(entry.getKey().toLowerCase());
+        }
+    }
+
     public void makeList() {
+        getPrevIngredients();
         listView = (ListView) findViewById(R.id.ingredients);
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,android.R.id.text1, items);
@@ -51,7 +66,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void deleteItem(int i) {
-        items.remove(i);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.remove(items.get(i));
+        editor.apply();
         makeList();
         Toast.makeText(getApplicationContext(), "Item removed", Toast.LENGTH_LONG).show();
     }
@@ -96,4 +113,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

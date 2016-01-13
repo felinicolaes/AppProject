@@ -3,6 +3,7 @@ package mprog.nl.emptyyourfridge;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +12,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.gson.internal.bind.ArrayTypeAdapter;
+
 import java.util.ArrayList;
+import java.util.Map;
 
 public class recipeListActivity extends AppCompatActivity {
 
@@ -63,13 +67,7 @@ public class recipeListActivity extends AppCompatActivity {
     }
 
     public void makeList() {
-        recipes = db.getAllRecipes();
-        items.clear();
-
-        for (Recipe i : recipes) {
-            items.add(i.getName());
-        }
-
+        getFilteredRecipes();
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,android.R.id.text1, items);
         listView.setAdapter(adapter);
@@ -102,4 +100,28 @@ public class recipeListActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Item removed", Toast.LENGTH_LONG).show();
     }
 
+    public void getFilteredRecipes() {
+        recipes = db.getAllRecipes();
+
+        for (Recipe recipe : recipes) {
+            items.add(recipe.getName());
+            for (String ingredient : getPrevIngredients()) {
+                if (!recipe.getAllIngredient().contains(ingredient)) {
+                    items.remove(recipe.getName());
+                }
+            }
+        }
+
+    }
+
+    public ArrayList<String> getPrevIngredients() {
+        SharedPreferences settings = getSharedPreferences("MyPrefsFile", 0);
+        Map<String, ?> allPrefs = settings.getAll();
+        ArrayList<String> ingredients = new ArrayList<String>();
+
+        for (Map.Entry<String, ?> entry : allPrefs.entrySet()) {
+            ingredients.add(entry.getKey().toLowerCase());
+        }
+        return ingredients;
+    }
 }

@@ -3,6 +3,7 @@ package mprog.nl.emptyyourfridge;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -86,14 +87,28 @@ public class addRecipeActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Item removed", Toast.LENGTH_LONG).show();
     }
 
-    public void addIngredientButton(View view) {
-        if (prevActivity.equals("MainActivity")) {
-            db.addRecipe(new Recipe(nameText.getText().toString(), "", ""));
+    public ArrayList<String> getAllNames() {
+        ArrayList<String> allNames = new ArrayList<String>();
+        for (Recipe recipe : db.getAllRecipes()) {
+            allNames.add(recipe.getName());
         }
-        Intent addIngredientIntent = new Intent(this, addIngredientActivity.class);
-        addIngredientIntent.putExtra("ActivityName", "addRecipeActivity");
-        addIngredientIntent.putExtra("RecipeName", nameText.getText().toString());
-        startActivity(addIngredientIntent);
+        return allNames;
+    }
+
+    public void addIngredientButton(View view) {
+        if (nameText.getText().toString().equals("")) {
+            Toast.makeText(addRecipeActivity.this, "Please enter a name", Toast.LENGTH_SHORT).show();
+        } else if (getAllNames().contains(nameText.getText().toString()) && prevActivity.equals("MainActivity")) {
+            Toast.makeText(addRecipeActivity.this, "This name is taken, please change it", Toast.LENGTH_SHORT).show();
+        } else {
+            if (prevActivity.equals("MainActivity")) {
+                db.addRecipe(new Recipe(nameText.getText().toString(), "", ""));
+            }
+            Intent addIngredientIntent = new Intent(this, addIngredientActivity.class);
+            addIngredientIntent.putExtra("ActivityName", "addRecipeActivity");
+            addIngredientIntent.putExtra("RecipeName", nameText.getText().toString());
+            startActivity(addIngredientIntent);
+        }
     }
 
     public void addRecipePictButton(View view) {
@@ -101,14 +116,19 @@ public class addRecipeActivity extends AppCompatActivity {
     }
 
     public void addRecipeTextButton(View view) {
-        if (prevActivity.equals("MainActivity")) {
-            db.addRecipe(new Recipe(nameText.getText().toString(), "", ""));
+        if (nameText.getText().toString().equals("")) {
+            Toast.makeText(addRecipeActivity.this, "Please enter a name", Toast.LENGTH_SHORT).show();
+        } else if (getAllNames().contains(nameText.getText().toString()) && prevActivity.equals("MainActivity")) {
+            Toast.makeText(addRecipeActivity.this, "This name is taken, please change it", Toast.LENGTH_SHORT).show();
+        } else {
+            if (prevActivity.equals("MainActivity")) {
+                db.addRecipe(new Recipe(nameText.getText().toString(), "", ""));
+            }
+            Intent typeRecipeIntent = new Intent(this, typeRecipeActivity.class);
+            typeRecipeIntent.putExtra("TextKind", "recipe");
+            typeRecipeIntent.putExtra("RecipeName", nameText.getText().toString());
+            startActivity(typeRecipeIntent);
         }
-
-        Intent typeRecipeIntent = new Intent(this, typeRecipeActivity.class);
-        typeRecipeIntent.putExtra("TextKind", "recipe");
-        typeRecipeIntent.putExtra("RecipeName", nameText.getText().toString());
-        startActivity(typeRecipeIntent);
     }
 
     public void addExtraPictButton(View view) {
@@ -116,25 +136,42 @@ public class addRecipeActivity extends AppCompatActivity {
     }
 
     public void addExtraTextButton(View view) {
-        if (prevActivity.equals("MainActivity")) {
-            db.addRecipe(new Recipe(nameText.getText().toString(), "", ""));
+        if (nameText.getText().toString().equals("")) {
+            Toast.makeText(addRecipeActivity.this, "Please enter a name", Toast.LENGTH_SHORT).show();
+        } else if (getAllNames().contains(nameText.getText().toString()) && prevActivity.equals("MainActivity")) {
+            Toast.makeText(addRecipeActivity.this, "This name is taken, please change it", Toast.LENGTH_SHORT).show();
+        } else {
+            if (prevActivity.equals("MainActivity")) {
+                db.addRecipe(new Recipe(nameText.getText().toString(), "", ""));
+            }
+            Intent typeRecipeIntent = new Intent(this, typeRecipeActivity.class);
+            typeRecipeIntent.putExtra("TextKind", "extra");
+            typeRecipeIntent.putExtra("RecipeName", nameText.getText().toString());
+            startActivity(typeRecipeIntent);
         }
-
-        Intent typeRecipeIntent = new Intent(this, typeRecipeActivity.class);
-        typeRecipeIntent.putExtra("TextKind", "extra");
-        typeRecipeIntent.putExtra("RecipeName", nameText.getText().toString());
-        startActivity(typeRecipeIntent);
     }
 
     public void saveRecipeButton(View view) {
-        if (!nameText.getText().toString().equals(recipeName) && !prevActivity.equals("MainActivity")) {
-            Recipe newRecipe = db.getRecipe(recipeName);
-            newRecipe.setName(nameText.getText().toString());
-            db.updateRecipe(recipeName, newRecipe);
-        }
+        System.out.println("hoi1");
+        if (nameText.getText().toString().equals("")) {
+            Toast.makeText(addRecipeActivity.this, "Please enter a name", Toast.LENGTH_SHORT).show();
+        } else if (getAllNames().contains(nameText.getText().toString()) && prevActivity.equals("MainActivity")) {
+            Toast.makeText(addRecipeActivity.this, "This name is taken, please change it", Toast.LENGTH_SHORT).show();
+        } else {
+            if (prevActivity.equals("MainActivity")) {
+                recipeName = nameText.getText().toString();
+                db.addRecipe(new Recipe(recipeName, "", ""));
+            }
+            if (!nameText.getText().toString().equals(recipeName)) {
+                Recipe newRecipe = db.getRecipe(recipeName);
+                newRecipe.setName(nameText.getText().toString());
+                db.updateRecipe(recipeName, newRecipe);
+            }
 
-        Intent seeRecipeIntent = new Intent(this, seeRecipeActivity.class);
-        seeRecipeIntent.putExtra("RecipeName", nameText.getText().toString());
-        startActivity(seeRecipeIntent);
+            Intent seeRecipeIntent = new Intent(this, seeRecipeActivity.class);
+            seeRecipeIntent.putExtra("RecipeName", nameText.getText().toString());
+            System.out.println("hoihoi6");
+            startActivity(seeRecipeIntent);
+        }
     }
 }

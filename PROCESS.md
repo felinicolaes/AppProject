@@ -34,7 +34,6 @@
     - can show recipe, name and notes of existing recipe
     - can show list of all recipes
     - can delete recipes
-- To Do: currently always have to enter recipename first, then recipe and notes. Change this and check for double names
 
 ##Day 7
 - Implement gson/ingredients
@@ -42,3 +41,11 @@
     - change database
     - can now add/edit/see ingredients
 - To Do: make so that ingredients mainscreen are saved
+
+##Day 8
+- Implemented ingredient amounts
+	- changed recipe-objects
+	- changed database
+	- can now add and see amounts of ingredients
+- Can no longer add recipes with same name, but can edit name so it will be the same
+- Can filter on ingredients

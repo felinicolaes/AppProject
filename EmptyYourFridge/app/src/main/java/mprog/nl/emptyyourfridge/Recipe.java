@@ -13,7 +13,9 @@ import java.util.ArrayList;
  */
 public class Recipe {
     String necIngredients;
+    String necAmount;
     String posIngredients;
+    String posAmount;
     String name;
     String pictArray;
     String notes;
@@ -26,32 +28,38 @@ public class Recipe {
         ArrayList<String> empty = new ArrayList<String>();
         this.necGson = new Gson();
         this.necIngredients = necGson.toJson(empty);
+        this.necAmount = necGson.toJson(empty);
         this.posGson = new Gson();
         this.posIngredients = posGson.toJson(empty);
+        this.posAmount = posGson.toJson(empty);
         this.recipe = recipe;
         this.pictArray = "";
         this.notes = notes;
     }
 
-    public Recipe(String name, String recipe, String notes, ArrayList<String> necIngredients,
-                  ArrayList<String> posIngredients) {
+    public Recipe(String name, String recipe, String notes, ArrayList<String> necIngredients, ArrayList<String> necAmount,
+                  ArrayList<String> posIngredients, ArrayList<String> posAmount) {
         this.name = name;
         this.necGson = new Gson();
         this.necIngredients = necGson.toJson(necIngredients);
+        this.necAmount = necGson.toJson(necAmount);
         this.posGson = new Gson();
         this.posIngredients = posGson.toJson(posIngredients);
+        this.posAmount = posGson.toJson(posAmount);
         this.recipe = recipe;
         this.pictArray = "";
         this.notes = notes;
     }
 
-    public Recipe(String name, String recipe, String notes, String necIngredients,
-                  String posIngredients) {
+    public Recipe(String name, String recipe, String notes, String necIngredients, String necAmount,
+                  String posIngredients, String posAmount) {
         this.name = name;
         this.necGson = new Gson();
         this.necIngredients = necIngredients;
+        this.necAmount = necAmount;
         this.posGson = new Gson();
         this.posIngredients = posIngredients;
+        this.posAmount = posAmount;
         this.recipe = recipe;
         this.pictArray = "";
         this.notes = notes;
@@ -69,9 +77,12 @@ public class Recipe {
     }
 
     public ArrayList<String> getAllIngredientPrint() {
-        ArrayList<String> allIngredient = getNecIngredientList();
-        for (String item : getPosIngredientList()) {
-            allIngredient.add(item + " (optional)");
+        ArrayList<String> allIngredient = new ArrayList<String>();
+        for (int i = 0 ; i < getNecIngredientList().size(); i++) {
+            allIngredient.add(getNecAmountList().get(i) + " " + getNecIngredientList().get(i));
+        }
+        for (int i = 0 ; i < getPosIngredientList().size(); i++) {
+            allIngredient.add(getPosAmountList().get(i) + " " + getPosIngredientList().get(i) + " (optional)");
         }
         return allIngredient;
     }
@@ -80,18 +91,36 @@ public class Recipe {
         return necIngredients;
     }
 
+    public String getNecAmount() {
+        return necAmount;
+    }
+
     public ArrayList<String> getNecIngredientList() {
         Type type = new TypeToken<ArrayList<String>>() {}.getType();
         return necGson.fromJson(necIngredients, type);
+    }
+
+    public ArrayList<String> getNecAmountList() {
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        return necGson.fromJson(necAmount, type);
     }
 
     public String getPosIngredient() {
         return posIngredients;
     }
 
+    public String getPosAmount() {
+        return posAmount;
+    }
+
     public ArrayList<String> getPosIngredientList() {
         Type type = new TypeToken<ArrayList<String>>() {}.getType();
         return posGson.fromJson(posIngredients, type);
+    }
+
+    public ArrayList<String> getPosAmountList() {
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        return posGson.fromJson(posAmount, type);
     }
 
     public String getName() {
@@ -121,12 +150,20 @@ public class Recipe {
         this.necIngredients = necGson.toJson(necIngredientsList);
     }
 
+    public void setNecAmount(ArrayList<String> necAmountList) {
+        this.necAmount = necGson.toJson(necAmountList);
+    }
+
     public void setPosIngredient(String posIngredients) {
         this.posIngredients = posIngredients;
     }
 
     public void setPosIngredient(ArrayList<String> posIngredientsList) {
         this.posIngredients = posGson.toJson(posIngredientsList);
+    }
+
+    public void setPosAmount(ArrayList<String> posAmountList) {
+        this.posAmount = posGson.toJson(posAmountList);
     }
 
     public void setName(String name) {
@@ -148,16 +185,22 @@ public class Recipe {
     /*
         ADD FUNCTIONS
      */
-    public void addNecIngredient(String necIngredient) {
+    public void addNecIngredient(String necIngredient, String necAmount) {
         ArrayList<String> necIngredientsList = getNecIngredientList();
         necIngredientsList.add(necIngredient);
         setNecIngredient(necIngredientsList);
+        ArrayList<String> necAmountList = getNecAmountList();
+        necAmountList.add(necAmount);
+        setNecAmount(necAmountList);
     }
 
-    public void addPosIngredient(String posIngredient) {
+    public void addPosIngredient(String posIngredient, String posAmount) {
         ArrayList<String> posIngredientsList = getPosIngredientList();
         posIngredientsList.add(posIngredient);
         setPosIngredient(posIngredientsList);
+        ArrayList<String> posAmountList = getPosAmountList();
+        posAmountList.add(posAmount);
+        setPosAmount(posAmountList);
     }
 
     /*
@@ -167,24 +210,30 @@ public class Recipe {
         ArrayList<String> necIngredientsList = getNecIngredientList();
         ArrayList<String> posIngredientsList = getPosIngredientList();
         if (necIngredientsList.contains(ingredient)) {
-            necIngredientsList.remove(ingredient);
-            setNecIngredient(necIngredientsList);
+            removeNecIngredient(ingredient);
         } else if (posIngredientsList.contains(ingredient)) {
-            posIngredientsList.remove(ingredient);
-            setPosIngredient(posIngredientsList);
+            removePosIngredient(ingredient);
         }
     }
 
-    public void removeNecIngredient(String necIngredient) {
+    public void removeNecIngredient(String ingredient) {
         ArrayList<String> necIngredientsList = getNecIngredientList();
-        necIngredientsList.remove(necIngredient);
+        ArrayList<String> necAmountList = getNecAmountList();
+        int i = necIngredientsList.indexOf(ingredient);
+        necIngredientsList.remove(i);
+        necAmountList.remove(i);
         setNecIngredient(necIngredientsList);
+        setNecAmount(necAmountList);
     }
 
-    public void removePosIngredient(String posIngredient) {
+    public void removePosIngredient(String ingredient) {
         ArrayList<String> posIngredientsList = getPosIngredientList();
-        posIngredientsList.remove(posIngredient);
+        ArrayList<String> posAmountList = getPosAmountList();
+        int i = posIngredientsList.indexOf(ingredient);
+        posAmountList.remove(i);
+        posIngredientsList.remove(i);
         setPosIngredient(posIngredientsList);
+        setPosAmount(posAmountList);
     }
 
 }

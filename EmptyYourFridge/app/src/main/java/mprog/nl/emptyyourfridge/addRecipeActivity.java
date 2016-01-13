@@ -39,7 +39,7 @@ public class addRecipeActivity extends AppCompatActivity {
         nameText.setText(recipeName, TextView.BufferType.EDITABLE);
 
         if (extra.containsKey("IngredientName")) {
-            addItem(extra.getString("IngredientName"), extra.getString("Status"));
+            addItem(extra.getString("IngredientName"), extra.getString("AmountName"), extra.getString("Status"));
         } else if (extra.containsKey("notes")) {
             notes = extra.getString("notes");
         } else if (extra.containsKey("recipe")) {
@@ -68,12 +68,12 @@ public class addRecipeActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
-    public void addItem(String itemName, String optionality) {
+    public void addItem(String itemName, String itemAmount, String optionality) {
         Recipe recipe = db.getRecipe(recipeName);
         if (optionality.equals("necessary")) {
-            recipe.addNecIngredient(itemName);
+            recipe.addNecIngredient(itemName, itemAmount);
         } else {
-            recipe.addPosIngredient(itemName);
+            recipe.addPosIngredient(itemName, itemAmount);
         }
         db.updateRecipe(recipeName, recipe);
     }
@@ -89,7 +89,6 @@ public class addRecipeActivity extends AppCompatActivity {
     public void addIngredientButton(View view) {
         if (prevActivity.equals("MainActivity")) {
             db.addRecipe(new Recipe(nameText.getText().toString(), "", ""));
-            Toast.makeText(getApplicationContext(), "Recipe added", Toast.LENGTH_LONG).show();
         }
         Intent addIngredientIntent = new Intent(this, addIngredientActivity.class);
         addIngredientIntent.putExtra("ActivityName", "addRecipeActivity");

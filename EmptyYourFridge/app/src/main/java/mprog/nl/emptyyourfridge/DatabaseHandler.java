@@ -31,7 +31,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_RECIPE = "recipe";
     private static final String KEY_NOTES = "notes";
     private static final String KEY_NEC_INGR = "necIngredients";
+    private static final String KEY_NEC_AMOUNT = "necAmounts";
     private static final String KEY_POS_INGR = "posIngredients";
+    private static final String KEY_POS_AMOUNT = "posAmounts";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -42,7 +44,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_RECIPES_TABLE = "CREATE TABLE " + TABLE_RECIPES + "(" + KEY_NAME + " TEXT,"
                 + KEY_RECIPE + " TEXT," + KEY_NOTES + " TEXT," + KEY_NEC_INGR + " TEXT,"
-                + KEY_POS_INGR + " TEXT" + ")";
+                + KEY_NEC_AMOUNT + " TEXT," + KEY_POS_INGR + " TEXT," + KEY_POS_AMOUNT + " TEXT" + ")";
         db.execSQL(CREATE_RECIPES_TABLE);
     }
 
@@ -64,7 +66,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_RECIPE, recipe.getRecipe());
         values.put(KEY_NOTES, recipe.getNotes());
         values.put(KEY_NEC_INGR, recipe.getNecIngredient());
+        values.put(KEY_NEC_AMOUNT, recipe.getNecAmount());
         values.put(KEY_POS_INGR, recipe.getPosIngredient());
+        values.put(KEY_POS_AMOUNT, recipe.getPosAmount());
 
         // Inserting Row
         db.insert(TABLE_RECIPES, null, values);
@@ -74,14 +78,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public Recipe getRecipe(String name) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_RECIPES, new String[]{ KEY_NAME, KEY_RECIPE,
-                        KEY_NOTES, KEY_NEC_INGR, KEY_POS_INGR}, KEY_NAME + "=?",
+        Cursor cursor = db.query(TABLE_RECIPES, new String[]{ KEY_NAME, KEY_RECIPE, KEY_NOTES,
+                        KEY_NEC_INGR, KEY_NEC_AMOUNT, KEY_POS_INGR, KEY_POS_AMOUNT}, KEY_NAME + "=?",
                 new String[]{String.valueOf(name)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
         Recipe recipe = new Recipe(cursor.getString(0), cursor.getString(1), cursor.getString(2),
-                cursor.getString(3), cursor.getString(4));
+                cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6));
         return recipe;
     }
 
@@ -97,7 +101,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Recipe recipe = new Recipe(cursor.getString(0), cursor.getString(1),
-                        cursor.getString(2), cursor.getString(3), cursor.getString(4));
+                        cursor.getString(2), cursor.getString(3), cursor.getString(4),
+                        cursor.getString(5), cursor.getString(6));
                 // Adding recipe to list
                 recipeList.add(recipe);
             } while (cursor.moveToNext());
@@ -115,7 +120,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_RECIPE, recipe.getRecipe());
         values.put(KEY_NOTES, recipe.getNotes());
         values.put(KEY_NEC_INGR, recipe.getNecIngredient());
+        values.put(KEY_NEC_AMOUNT, recipe.getNecAmount());
         values.put(KEY_POS_INGR, recipe.getPosIngredient());
+        values.put(KEY_POS_AMOUNT, recipe.getPosAmount());
 
         // updating row
         return db.update(TABLE_RECIPES, values, KEY_NAME + " = ?",

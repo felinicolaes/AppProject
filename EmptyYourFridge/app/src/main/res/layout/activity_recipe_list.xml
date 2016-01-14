@@ -23,7 +23,16 @@
         android:text="Long-press an item to remove it"
         android:id="@+id/textRemove"
         android:layout_below="@+id/ingredients"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back To Main"
+        android:id="@+id/back"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/ingredients"
+        android:onClick="backButton" />
 
 
 </RelativeLayout>

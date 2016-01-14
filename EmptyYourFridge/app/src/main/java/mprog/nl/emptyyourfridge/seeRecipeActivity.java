@@ -44,4 +44,11 @@ public class seeRecipeActivity extends AppCompatActivity {
         editRecipeIntent.putExtra("ActivityName", "seeRecipeActivity");
         startActivity(editRecipeIntent);
     }
+
+    public void backButton(View view) {
+        Intent recipeListIntent = new Intent(this, recipeListActivity.class);
+        recipeListIntent.putExtra("RecipeName", recipeName);
+        recipeListIntent.putExtra("ActivityName", "seeRecipeActivity");
+        startActivity(recipeListIntent);
+    }
 }

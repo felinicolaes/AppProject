@@ -46,11 +46,11 @@ public class recipeListActivity extends AppCompatActivity {
             }
         });
 
-        ArrayList necIngr = new ArrayList<String>();
-        necIngr.add("kip");
-        necIngr.add("groente");
-        ArrayList posIngr = new ArrayList<String>();
-        posIngr.add("meer kip");
+   //     ArrayList necIngr = new ArrayList<String>();
+   //     necIngr.add("kip");
+   //     necIngr.add("groente");
+   //     ArrayList posIngr = new ArrayList<String>();
+   //     posIngr.add("meer kip");
 
         db = new DatabaseHandler(this);
     //    db.addRecipe(new Recipe("Kip met friet", "Bak kip alles leuk", "Vergeet niet ook friet", necIngr, posIngr));
@@ -64,6 +64,11 @@ public class recipeListActivity extends AppCompatActivity {
         Intent seeRecipeIntent = new Intent(this, seeRecipeActivity.class);
         seeRecipeIntent.putExtra("RecipeName", recipeName.toString());
         startActivity(seeRecipeIntent);
+    }
+
+    public void backButton(View view) {
+        Intent mainActivityIntent = new Intent(this, MainActivity.class);
+        startActivity(mainActivityIntent);
     }
 
     public void makeList() {
@@ -101,6 +106,7 @@ public class recipeListActivity extends AppCompatActivity {
     }
 
     public void getFilteredRecipes() {
+        items.clear();
         recipes = db.getAllRecipes();
 
         for (Recipe recipe : recipes) {

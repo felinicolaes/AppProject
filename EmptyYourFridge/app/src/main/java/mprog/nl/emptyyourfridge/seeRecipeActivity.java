@@ -47,7 +47,7 @@ public class seeRecipeActivity extends AppCompatActivity {
     }
 
     public void showRecipe() {
-        if (recipe.getRecipe().startsWith("/storage/emulated/0/EmptyYourFridge/")) {
+        if (recipe.getRecipe().endsWith(".jpg")) {
             ScrollView recipeScrollView = (ScrollView) findViewById(R.id.recipeScrollView);
             recipeScrollView.setVisibility(View.GONE);
             ImageView image = (ImageView) findViewById(R.id.recipeImage);

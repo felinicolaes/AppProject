@@ -220,7 +220,6 @@ public class addRecipeActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        ImageView viewImage = (ImageView)findViewById(R.id.viewImage);
         if (resultCode == RESULT_OK) {
             if (requestCode == 1) {
                 File f = new File(Environment.getExternalStorageDirectory().toString());
@@ -235,7 +234,6 @@ public class addRecipeActivity extends AppCompatActivity {
                     BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
 
                     bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(), bitmapOptions);
-                    viewImage.setImageBitmap(bitmap);
 
                     String path = android.os.Environment.getExternalStorageDirectory()
                             + File.separator + "EmptyYourFridge";
@@ -246,13 +244,10 @@ public class addRecipeActivity extends AppCompatActivity {
                     f.delete();
                     OutputStream outFile = null;
                     File file = new File(path, String.valueOf(System.currentTimeMillis()) + ".jpg");
-                    System.out.println("file is " + file.toString());
-
 
                     Recipe recipe = db.getRecipe(recipeName);
                     recipe.setRecipe(file.toString());
                     db.updateRecipe(recipeName, recipe);
-                    System.out.println("recipe is " + db.getRecipe(recipeName).getRecipe());
 
                     try {
                         outFile = new FileOutputStream(file);
@@ -277,24 +272,11 @@ public class addRecipeActivity extends AppCompatActivity {
                 int columnIndex = c.getColumnIndex(filePath[0]);
                 String picturePath = c.getString(columnIndex);
                 c.close();
-                Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
-                viewImage.setImageBitmap(thumbnail);
+
+                Recipe recipe = db.getRecipe(recipeName);
+                recipe.setRecipe(picturePath.toString());
+                db.updateRecipe(recipeName, recipe);
             }
         }
-    }
-
-
-    public Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
-
-    public String getRealPathFromURI(Uri uri) {
-        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-        cursor.moveToFirst();
-        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-        return cursor.getString(idx);
     }
 }

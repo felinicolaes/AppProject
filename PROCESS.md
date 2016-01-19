@@ -49,3 +49,17 @@
 	- can now add and see amounts of ingredients
 - Can no longer add recipes with same name, but can edit name so it will be the same
 - Can filter on ingredients
+
+##Day 9
+- Added 'back'-buttons
+- Made design better (less overlap in text/buttons)
+- Researched in-app-picture-taking
+
+##Day 10
+- Further researched in-app-picture-taking
+- Installed emulator (had to change VT-x in BIOS)
+
+##Day 11
+- Implemented in-app-picture taking
+- To Do: make so that picture can be made bigger (imageButton to new activity where you can zoom?)
+- To Do: Do I want 'extra' picture(s)?

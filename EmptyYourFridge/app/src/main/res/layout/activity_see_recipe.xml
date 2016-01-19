@@ -52,16 +52,16 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_weight="1"
-        android:id="@+id/scrollView"
+        android:id="@+id/recipeScrollView"
         android:layout_below="@+id/textView4"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:fillViewport="false">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/recipe"
-            android:text="hoi dit is een recept tralala"
             android:layout_alignTop="@+id/textView4"
             android:layout_alignParentStart="true" />
     </ScrollView>
@@ -82,15 +82,15 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Extras"
         android:id="@+id/textView3"
-        android:paddingTop="10dp"
-        android:layout_below="@+id/scrollView"
+        android:paddingTop="110dp"
+        android:layout_below="@+id/textView4"
         android:layout_alignParentStart="true" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_weight="1"
-        android:id="@+id/scrollView3"
+        android:id="@+id/noteScrollView"
         android:layout_below="@+id/textView3"
         android:layout_alignParentStart="true">
 
@@ -99,7 +99,6 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/notes"
-            android:text="hoi dit is een notitie tralala"
             android:layout_alignTop="@+id/textView4"
             android:layout_alignParentStart="true" />
     </ScrollView>
@@ -113,6 +112,13 @@
         android:onClick="backButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:id="@+id/recipeImage"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView4" />
 
 
 </RelativeLayout>

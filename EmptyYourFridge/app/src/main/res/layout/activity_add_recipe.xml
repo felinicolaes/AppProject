@@ -16,6 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:text="name"
+        android:inputType="textPersonName"
         android:textStyle="bold"
         android:textSize="16pt" />
 
@@ -120,5 +121,11 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/viewImage"
+        android:layout_below="@+id/addRecipePict"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

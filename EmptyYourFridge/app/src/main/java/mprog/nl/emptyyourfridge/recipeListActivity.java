@@ -11,9 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.google.gson.internal.bind.ArrayTypeAdapter;
-
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -46,16 +43,10 @@ public class recipeListActivity extends AppCompatActivity {
             }
         });
 
-   //     ArrayList necIngr = new ArrayList<String>();
-   //     necIngr.add("kip");
-   //     necIngr.add("groente");
-   //     ArrayList posIngr = new ArrayList<String>();
-   //     posIngr.add("meer kip");
-
         db = new DatabaseHandler(this);
-    //    db.addRecipe(new Recipe("Kip met friet", "Bak kip alles leuk", "Vergeet niet ook friet", necIngr, posIngr));
-   //     db.addRecipe(new Recipe("Kip met rijst", "Bak kip alles leuk", "Vergeet niet ook rijst", necIngr, posIngr));
-  //      db.addRecipe(new Recipe("Kip met pasta", "Bak kip alles leuk", "Vergeet niet ook pasta", necIngr, posIngr));
+        if (db.getAllRecipes().size() == 0) {
+            addRecipes();
+        }
 
         makeList();
     }
@@ -130,4 +121,32 @@ public class recipeListActivity extends AppCompatActivity {
         }
         return ingredients;
     }
+
+
+    public void addRecipes(){
+        db.addRecipe(new Recipe("Broodje gezond", "Leg alles op broodje, klaar!", "Lekker lekker",
+                makeArrayList(new String[]{"brood", "kaas", "sla"}), makeArrayList(new String[]{"2 snee", "1 plak", ""}),
+                makeArrayList(new String[]{"ham"}), makeArrayList(new String[]{"1 plak"}) ) );
+        db.addRecipe(new Recipe("Broodje kaas", "Leg alles op broodje, klaar!", "Lekker lekker",
+                makeArrayList(new String[]{"brood", "kaas"}), makeArrayList(new String[]{"2 snee", "1 plak"}),
+                makeArrayList(new String[]{}), makeArrayList(new String[]{})));
+        db.addRecipe(new Recipe("BoterHAM", "Leg alles op broodje, klaar!", "Lekker lekker",
+                makeArrayList(new String[]{"brood", "ham"}), makeArrayList(new String[]{"2 snee", "1 plak"}),
+                makeArrayList(new String[]{}), makeArrayList(new String[]{}) ) );
+        db.addRecipe(new Recipe("Croissant", "Leg alles erop, klaar!", "Lekker lekker",
+                makeArrayList(new String[]{"croissant"}), makeArrayList(new String[]{"1"}),
+                makeArrayList(new String[]{"kaas", "jam"}), makeArrayList(new String[]{"", ""}) ) );
+    }
+
+    public ArrayList<String> makeArrayList(String[] strings) {
+        ArrayList<String> list = new ArrayList<String>();
+        for (String s : strings)
+        {
+            list.add(s);
+        }
+        return list;
+    }
 }
+
+
+

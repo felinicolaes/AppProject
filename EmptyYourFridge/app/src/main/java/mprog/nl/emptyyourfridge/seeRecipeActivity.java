@@ -14,11 +14,14 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class seeRecipeActivity extends AppCompatActivity {
 
     String recipeName;
     Recipe recipe;
+    ImageView smallImage;
+    ImageView largeImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,8 @@ public class seeRecipeActivity extends AppCompatActivity {
         TextView nameText = (TextView) findViewById(R.id.name);
         TextView notesText = (TextView) findViewById(R.id.notes);
         ListView ingredientsView = (ListView) findViewById(R.id.ingredients);
+        largeImage = (ImageView) findViewById(R.id.largeImage);
+        smallImage = (ImageView) findViewById(R.id.recipeImage);
 
         recipe = db.getRecipe(recipeName);
         showRecipe();
@@ -39,27 +44,44 @@ public class seeRecipeActivity extends AppCompatActivity {
         nameText.setText(recipeName, TextView.BufferType.EDITABLE);
         notesText.setText(recipe.getNotes());
 
-        ArrayAdapter<String> adapter =
-                  new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,android.R.id.text1, recipe.getAllIngredientPrint());
+        ArrayAdapter<String> adapter = new IngredientList(seeRecipeActivity.this, recipe.getNecAmountList(),
+                recipe.getNecIngredientList(), recipe.getPosAmountList(), recipe.getPosIngredientList(),
+                recipe.getAllIngredientPrint());
         ingredientsView.setAdapter(adapter);
 
-
+        largeImage.setVisibility(View.GONE);
     }
 
     public void showRecipe() {
         if (recipe.getRecipe().endsWith(".jpg")) {
             ScrollView recipeScrollView = (ScrollView) findViewById(R.id.recipeScrollView);
             recipeScrollView.setVisibility(View.GONE);
-            ImageView image = (ImageView) findViewById(R.id.recipeImage);
             BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
             Bitmap bitmap = BitmapFactory.decodeFile(recipe.getRecipe(), bitmapOptions);
-            image.setImageBitmap(bitmap);
+            smallImage.setImageBitmap(bitmap);
+            largeImage.setImageBitmap(bitmap);
+            clickPictures();
         } else {
             ImageView recipeImage = (ImageView) findViewById(R.id.recipeImage);
             recipeImage.setVisibility(View.GONE);
             TextView recipeText = (TextView) findViewById(R.id.recipe);
             recipeText.setText(recipe.getRecipe());
         }
+    }
+
+    public void clickPictures() {
+        smallImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                largeImage.setVisibility(View.VISIBLE);
+            }
+        });
+        largeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                largeImage.setVisibility(View.GONE);
+            }
+        });
     }
 
     public void editButton(View view) {

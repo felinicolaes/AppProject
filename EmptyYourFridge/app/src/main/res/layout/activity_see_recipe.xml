@@ -118,7 +118,17 @@
         android:layout_height="100dp"
         android:id="@+id/recipeImage"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView4" />
+        android:layout_below="@+id/textView4"
+        android:clickable="true" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/largeImage"
+        android:layout_toStartOf="@+id/edit"
+        android:layout_alignBottom="@+id/back"
+        android:layout_alignParentEnd="true"
+        android:clickable="true" />
 
 
 </RelativeLayout>

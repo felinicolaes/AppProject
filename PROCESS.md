@@ -63,3 +63,11 @@
 - Implemented in-app-picture taking
 - To Do: make so that picture can be made bigger (imageButton to new activity where you can zoom?)
 - To Do: Do I want 'extra' picture(s)?
+
+##Day 12
+- Fixed bugs where picture from gallery was not shown
+
+##Day 13
+- Made custom listView
+- Picture can now be enlarged
+- To Do: can no longer delete from listview?

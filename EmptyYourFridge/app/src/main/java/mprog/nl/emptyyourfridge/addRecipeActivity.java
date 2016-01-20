@@ -77,18 +77,17 @@ public class addRecipeActivity extends AppCompatActivity {
         });
     }
 
-
-
     public void makeList() {
         listView = (ListView) findViewById(R.id.ingredients);
         if (!prevActivity.equals("MainActivity")) {
-            ingredients = db.getRecipe(recipeName).getAllIngredientPrint();
-        } else {
-            ingredients = new ArrayList<String>();
+            Recipe recipe = db.getRecipe(recipeName);
+            ArrayAdapter<String> adapter = new IngredientList(addRecipeActivity.this, recipe.getNecAmountList(),
+                    recipe.getNecIngredientList(), recipe.getPosAmountList(), recipe.getPosIngredientList(),
+                    recipe.getAllIngredientPrint());
+            System.out.println("adapter gemaakt");
+            listView.setAdapter(adapter);
+            System.out.println("adapter geset");
         }
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,android.R.id.text1, ingredients);
-        listView.setAdapter(adapter);
     }
 
     public void addItem(String itemName, String itemAmount, String optionality) {

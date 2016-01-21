@@ -17,11 +17,9 @@
             android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"
-            android:label="Empty Your Fridge"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="Empty Your Fridge">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -31,7 +29,6 @@
         </activity>
         <activity android:name=".addRecipeActivity"
             android:screenOrientation="portrait"
-
             android:windowSoftInputMode="stateAlwaysHidden"
             android:label="Edit Recipe">
         </activity>

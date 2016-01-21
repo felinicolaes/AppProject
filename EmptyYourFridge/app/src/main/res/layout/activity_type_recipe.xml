@@ -51,6 +51,7 @@
         android:text="Save"
         android:id="@+id/save"
         android:onClick="saveButton"
+        android:background="@drawable/rounded_button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />
 

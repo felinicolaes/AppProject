@@ -71,3 +71,12 @@
 - Made custom listView
 - Picture can now be enlarged
 - To Do: can no longer delete from listview?
+
+##Day 14
+- Custom listView now bugless
+- Added are-you-sure-dialog when changing recipe to picture etc
+- Previous typed recipe will now be loaded when editing, so that user does not have to type whole recipe twice, but can just edit old one
+- Made nicer design for seeRecipeActivity: 2 scollviews instead of 3
+- Made nicer design for MainActtivity: clearer placement of buttons
+- Made custom button xml rounded_button.xml
+- Added custom theme to whole app

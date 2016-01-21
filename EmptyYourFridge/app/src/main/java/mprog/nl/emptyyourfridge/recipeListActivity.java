@@ -69,7 +69,6 @@ public class recipeListActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
-    // code from http://www.codeproject.com/Articles/569966/SharedplusPreferencesplusandplusYes-fNoplusAlertp
     public void deleteItem(int i) {
         final int item = i;
         new AlertDialog.Builder(this)
@@ -87,7 +86,6 @@ public class recipeListActivity extends AppCompatActivity {
                     }
                 })
                 .show();
-
     }
 
     public void reallyDelete(int i) {

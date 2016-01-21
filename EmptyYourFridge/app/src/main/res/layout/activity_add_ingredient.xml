@@ -49,6 +49,7 @@
         android:layout_height="wrap_content"
         android:text="Add"
         android:id="@+id/addIngredient"
+        android:background="@drawable/rounded_button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:onClick="addIngredientButton" />

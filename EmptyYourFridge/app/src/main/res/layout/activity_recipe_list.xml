@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:text="Back To Main"
         android:id="@+id/back"
+        android:background="@drawable/rounded_button"
         android:layout_alignParentBottom="true"
         android:layout_alignEnd="@+id/ingredients"
         android:onClick="backButton" />

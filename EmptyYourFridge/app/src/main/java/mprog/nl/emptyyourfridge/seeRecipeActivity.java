@@ -54,8 +54,8 @@ public class seeRecipeActivity extends AppCompatActivity {
 
     public void showRecipe() {
         if (recipe.getRecipe().endsWith(".jpg")) {
-            ScrollView recipeScrollView = (ScrollView) findViewById(R.id.recipeScrollView);
-            recipeScrollView.setVisibility(View.GONE);
+            TextView recipeText = (TextView) findViewById(R.id.recipe);
+            recipeText.setVisibility(View.GONE);
             BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
             Bitmap bitmap = BitmapFactory.decodeFile(recipe.getRecipe(), bitmapOptions);
             smallImage.setImageBitmap(bitmap);

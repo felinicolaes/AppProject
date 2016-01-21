@@ -105,7 +105,7 @@ public class addRecipeActivity extends AppCompatActivity {
         recipe.removeIngredient(recipe.getAllIngredient().get(i));
         db.updateRecipe(recipeName, recipe);
         makeList();
-        Toast.makeText(getApplicationContext(), "Item removed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Item removed", Toast.LENGTH_SHORT).show();
     }
 
     public ArrayList<String> getAllNames() {
@@ -114,6 +114,27 @@ public class addRecipeActivity extends AppCompatActivity {
             allNames.add(recipe.getName());
         }
         return allNames;
+    }
+
+    public void sureChangeRecipe(final String recipeKind) {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete item")
+                .setMessage("Are you sure you want to delete the old recipe and start a new one?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(recipeKind.equals("picture")) {
+                            addRecipePict();
+                        } else {
+                            addRecipeText();
+                        }
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .show();
     }
 
     public void addIngredientButton(View view) {
@@ -134,6 +155,10 @@ public class addRecipeActivity extends AppCompatActivity {
 
     // Tutorial used: http://www.c-sharpcorner.com/UploadFile/e14021/capture-image-from-camera-and-selecting-image-from-gallery-o/
     public void addRecipePictButton(View view) {
+        sureChangeRecipe("picture");
+    }
+
+    public void addRecipePict() {
         final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
         AlertDialog.Builder builder = new AlertDialog.Builder(addRecipeActivity.this);
         builder.setTitle("Add Photo!");
@@ -157,19 +182,26 @@ public class addRecipeActivity extends AppCompatActivity {
     }
 
     public void addRecipeTextButton(View view) {
-        if (nameText.getText().toString().equals("")) {
+        String name = nameText.getText().toString();
+        if (name.equals("")) {
             Toast.makeText(addRecipeActivity.this, "Please enter a name", Toast.LENGTH_SHORT).show();
-        } else if (getAllNames().contains(nameText.getText().toString()) && prevActivity.equals("MainActivity")) {
+        } else if (getAllNames().contains(name) && prevActivity.equals("MainActivity")) {
             Toast.makeText(addRecipeActivity.this, "This name is taken, please change it", Toast.LENGTH_SHORT).show();
+        } else if (db.getRecipe(name).getRecipe().endsWith(".jpg")){
+            sureChangeRecipe("text");
         } else {
-            if (prevActivity.equals("MainActivity")) {
-                db.addRecipe(new Recipe(nameText.getText().toString(), "", ""));
-            }
-            Intent typeRecipeIntent = new Intent(this, typeRecipeActivity.class);
-            typeRecipeIntent.putExtra("TextKind", "recipe");
-            typeRecipeIntent.putExtra("RecipeName", nameText.getText().toString());
-            startActivity(typeRecipeIntent);
+            addRecipeText();
         }
+    }
+
+    public void addRecipeText() {
+        if (prevActivity.equals("MainActivity")) {
+            db.addRecipe(new Recipe(nameText.getText().toString(), "", ""));
+        }
+        Intent typeRecipeIntent = new Intent(this, typeRecipeActivity.class);
+        typeRecipeIntent.putExtra("TextKind", "recipe");
+        typeRecipeIntent.putExtra("RecipeName", nameText.getText().toString());
+        startActivity(typeRecipeIntent);
     }
 
     public void addExtraPictButton(View view) {

@@ -18,10 +18,8 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Long-press an item to remove it"
         android:id="@+id/textRemove"
-        android:layout_alignParentBottom="false"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="false"
-        android:layout_below="@+id/addRecipeButton" />
+        android:layout_alignBottom="@+id/plusIngredient"
+        android:layout_toStartOf="@+id/plusIngredient" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -33,32 +31,46 @@
         android:layout_above="@+id/searchButton" />
 
     <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Recipe"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:text="Create new recipe"
         android:id="@+id/addRecipeButton"
-        android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/ingredients"
-        android:onClick="addRecipeButton" />
+        android:onClick="addRecipeButton"
+        android:background="@drawable/rounded_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/searchButton" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:text="Filter recipes"
         android:id="@+id/searchButton"
         android:onClick="searchButton"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:background="@drawable/rounded_button"
+        android:layout_above="@+id/addRecipeButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:text="+"
         android:id="@+id/plusIngredient"
-        android:layout_alignBottom="@+id/ingredients"
+        android:onClick="addIngredientButton"
+        android:background="@drawable/rounded_button"
+        android:layout_alignParentTop="true"
         android:layout_alignEnd="@+id/ingredients"
-        android:onClick="addIngredientButton" />
+        android:textSize="18sp"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Filter on ingredient"
+        android:id="@+id/textView5"
+        android:layout_above="@+id/textRemove"
+        android:layout_toStartOf="@+id/plusIngredient" />
 
 
 </RelativeLayout>

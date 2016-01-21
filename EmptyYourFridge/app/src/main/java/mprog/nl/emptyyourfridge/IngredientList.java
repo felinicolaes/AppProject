@@ -42,7 +42,6 @@ public class IngredientList extends ArrayAdapter<String>{
         TextView ingredient = (TextView) itemView.findViewById(R.id.ingredient);
         TextView optional = (TextView) itemView.findViewById(R.id.optional);
 
-        System.out.println("vul hem");
         if (i < necAmounts.size()) {
             amount.setText(necAmounts.get(i));
             ingredient.setText(necIngredients.get(i));
@@ -52,8 +51,6 @@ public class IngredientList extends ArrayAdapter<String>{
             ingredient.setText(posIngredients.get(i-necAmounts.size()));
             optional.setText("(optional)");
         }
-        System.out.println("ding ge-add");
-
         return itemView;
     }
 }

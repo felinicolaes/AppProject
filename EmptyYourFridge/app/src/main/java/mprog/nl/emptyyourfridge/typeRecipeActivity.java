@@ -10,26 +10,39 @@ import android.widget.TextView;
 public class typeRecipeActivity extends AppCompatActivity {
     String recipeName;
     String textKind;
+    TextView mainText;
+    DatabaseHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_type_recipe);
 
+        db = new DatabaseHandler(this);
+        setEditText();
+    }
+
+    public void setEditText() {
         Bundle extra = getIntent().getExtras();
-        TextView nameText = (TextView) findViewById(R.id.name);
-        TextView kindText = (TextView) findViewById(R.id.kind);
         recipeName = extra.getString("RecipeName");
         textKind = extra.getString("TextKind");
 
+        TextView nameText = (TextView) findViewById(R.id.name);
+        TextView kindText = (TextView) findViewById(R.id.kind);
+        mainText = (TextView) findViewById(R.id.mainText);
+        Recipe recipe = db.getRecipe(recipeName);
+
         nameText.setText(recipeName, TextView.BufferType.EDITABLE);
         kindText.setText("edit " + textKind, TextView.BufferType.EDITABLE);
+
+        if (textKind.equals("recipe") && !recipe.getRecipe().endsWith(".jpg")) {
+            mainText.setText(recipe.getRecipe(), TextView.BufferType.EDITABLE);
+        } else if (textKind.equals("extra")){
+            mainText.setText(recipe.getNotes(), TextView.BufferType.EDITABLE);
+        }
     }
 
     public void saveButton(View view) {
-        DatabaseHandler db = new DatabaseHandler(this);
-        TextView mainText = (TextView) findViewById(R.id.mainText);
-
         Recipe recipe = db.getRecipe(recipeName);
         if (textKind.equals("recipe")) {
             recipe.setRecipe(mainText.getText().toString());
@@ -44,5 +57,4 @@ public class typeRecipeActivity extends AppCompatActivity {
         addRecipeIntent.putExtra("ActivityName", "typeRecipeActivity");
         startActivity(addRecipeIntent);
     }
-
 }

@@ -33,7 +33,7 @@ public class Recipe {
         this.posIngredients = posGson.toJson(empty);
         this.posAmount = posGson.toJson(empty);
         this.recipe = recipe;
-        this.pictArray = "";
+        this.pictArray = posGson.toJson(empty);
         this.notes = notes;
     }
 
@@ -47,12 +47,12 @@ public class Recipe {
         this.posIngredients = posGson.toJson(posIngredients);
         this.posAmount = posGson.toJson(posAmount);
         this.recipe = recipe;
-        this.pictArray = "";
+        this.pictArray = posGson.toJson(new ArrayList<String>());
         this.notes = notes;
     }
 
     public Recipe(String name, String recipe, String notes, String necIngredients, String necAmount,
-                  String posIngredients, String posAmount) {
+                  String posIngredients, String posAmount, String pictArray) {
         this.name = name;
         this.necGson = new Gson();
         this.necIngredients = necIngredients;
@@ -61,7 +61,7 @@ public class Recipe {
         this.posIngredients = posIngredients;
         this.posAmount = posAmount;
         this.recipe = recipe;
-        this.pictArray = "";
+        this.pictArray = pictArray;
         this.notes = notes;
     }
 
@@ -131,6 +131,11 @@ public class Recipe {
         return pictArray;
     }
 
+    public ArrayList<String> getPicsList() {
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        return posGson.fromJson(pictArray, type);
+    }
+
     public String getNotes() {
         return notes;
     }
@@ -142,20 +147,12 @@ public class Recipe {
     /*
         SET FUNCTIONS
      */
-    public void setNecIngredient(String necIngredients) {
-        this.necIngredients = necIngredients;
-    }
-
     public void setNecIngredient(ArrayList<String> necIngredientsList) {
         this.necIngredients = necGson.toJson(necIngredientsList);
     }
 
     public void setNecAmount(ArrayList<String> necAmountList) {
         this.necAmount = necGson.toJson(necAmountList);
-    }
-
-    public void setPosIngredient(String posIngredients) {
-        this.posIngredients = posIngredients;
     }
 
     public void setPosIngredient(ArrayList<String> posIngredientsList) {
@@ -170,8 +167,8 @@ public class Recipe {
         this.name = name;
     }
 
-    public void setPics(String pictArray) {
-        this.pictArray = pictArray;
+    public void setPics(ArrayList<String> pictArray) {
+        this.pictArray = posGson.toJson(pictArray);;
     }
 
     public void setNotes(String notes) {
@@ -201,6 +198,12 @@ public class Recipe {
         ArrayList<String> posAmountList = getPosAmountList();
         posAmountList.add(posAmount);
         setPosAmount(posAmountList);
+    }
+
+    public void addPic(String pic) {
+        ArrayList<String> picsList = getPicsList();
+        picsList.add(pic);
+        setPics(picsList);
     }
 
     /*
@@ -234,6 +237,12 @@ public class Recipe {
         posIngredientsList.remove(i);
         setPosIngredient(posIngredientsList);
         setPosAmount(posAmountList);
+    }
+
+    public void removePic(String pic) {
+        ArrayList<String> picsList = getPicsList();
+        picsList.remove(pic);
+        setPosIngredient(picsList);
     }
 
 }

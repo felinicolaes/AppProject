@@ -80,3 +80,9 @@
 - Made nicer design for MainActtivity: clearer placement of buttons
 - Made custom button xml rounded_button.xml
 - Added custom theme to whole app
+
+TO DO:
+- picture not found error message/catch
+- horizontalview fix borders
+- fixed out of memory error?
+- onclicklistener on horizontalview images

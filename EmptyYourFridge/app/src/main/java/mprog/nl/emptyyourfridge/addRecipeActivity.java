@@ -32,7 +32,6 @@ import java.util.ArrayList;
 
 public class addRecipeActivity extends AppCompatActivity {
 
-    ArrayList<String> ingredients;
     ListView listView;
     EditText nameText;
     String prevActivity;
@@ -40,10 +39,6 @@ public class addRecipeActivity extends AppCompatActivity {
     String recipeName;
     String recipeText;
     String notes;
-
-    File file;
-    File dir;
-    Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,9 +79,7 @@ public class addRecipeActivity extends AppCompatActivity {
             ArrayAdapter<String> adapter = new IngredientList(addRecipeActivity.this, recipe.getNecAmountList(),
                     recipe.getNecIngredientList(), recipe.getPosAmountList(), recipe.getPosIngredientList(),
                     recipe.getAllIngredientPrint());
-            System.out.println("adapter gemaakt");
             listView.setAdapter(adapter);
-            System.out.println("adapter geset");
         }
     }
 
@@ -123,7 +116,7 @@ public class addRecipeActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         if(recipeKind.equals("picture")) {
-                            addRecipePict();
+                            addRecipePict("recipe");
                         } else {
                             addRecipeText();
                         }
@@ -153,12 +146,11 @@ public class addRecipeActivity extends AppCompatActivity {
         }
     }
 
-    // Tutorial used: http://www.c-sharpcorner.com/UploadFile/e14021/capture-image-from-camera-and-selecting-image-from-gallery-o/
     public void addRecipePictButton(View view) {
         sureChangeRecipe("picture");
     }
 
-    public void addRecipePict() {
+    public void addRecipePict(final String textKind) {
         final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
         AlertDialog.Builder builder = new AlertDialog.Builder(addRecipeActivity.this);
         builder.setTitle("Add Photo!");
@@ -169,10 +161,18 @@ public class addRecipeActivity extends AppCompatActivity {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-                    startActivityForResult(intent, 1);
+                    if (textKind.equals("recipe")) {
+                        startActivityForResult(intent, 1);
+                    } else {
+                        startActivityForResult(intent, 3);
+                    }
                 } else if (options[item].equals("Choose from Gallery")) {
                     Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(intent, 2);
+                    if (textKind.equals("recipe")) {
+                        startActivityForResult(intent, 2);
+                    } else {
+                        startActivityForResult(intent, 4);
+                    }
                 } else if (options[item].equals("Cancel")) {
                     dialog.dismiss();
                 }
@@ -205,7 +205,7 @@ public class addRecipeActivity extends AppCompatActivity {
     }
 
     public void addExtraPictButton(View view) {
-
+        addRecipePict("extra");
     }
 
     public void addExtraTextButton(View view) {
@@ -225,7 +225,6 @@ public class addRecipeActivity extends AppCompatActivity {
     }
 
     public void saveRecipeButton(View view) {
-        System.out.println("hoi1");
         if (nameText.getText().toString().equals("")) {
             Toast.makeText(addRecipeActivity.this, "Please enter a name", Toast.LENGTH_SHORT).show();
         } else if (getAllNames().contains(nameText.getText().toString()) && prevActivity.equals("MainActivity")) {
@@ -243,16 +242,16 @@ public class addRecipeActivity extends AppCompatActivity {
 
             Intent seeRecipeIntent = new Intent(this, seeRecipeActivity.class);
             seeRecipeIntent.putExtra("RecipeName", nameText.getText().toString());
-            System.out.println("hoihoi6");
             startActivity(seeRecipeIntent);
         }
     }
 
+    // Tutorial used: http://www.c-sharpcorner.com/UploadFile/e14021/capture-image-from-camera-and-selecting-image-from-gallery-o/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == 1) {
+            if (requestCode == 1 || requestCode == 3) {
                 File f = new File(Environment.getExternalStorageDirectory().toString());
                 for (File temp : f.listFiles()) {
                     if (temp.getName().equals("temp.jpg")) {
@@ -261,11 +260,12 @@ public class addRecipeActivity extends AppCompatActivity {
                     }
                 }
                 try {
-                    Bitmap bitmap;
                     BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+                    Bitmap bigmap = BitmapFactory.decodeFile(f.getAbsolutePath(), bitmapOptions);
+                    int height = (int) Math.round(bigmap.getHeight()*0.3);
+                    int width = (int) Math.round(bigmap.getWidth()*0.3);
 
-                    bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(), bitmapOptions);
-
+                    Bitmap bitmap = Bitmap.createScaledBitmap(bigmap, width, height, true);
                     String path = android.os.Environment.getExternalStorageDirectory()
                             + File.separator + "EmptyYourFridge";
                     File directory = new File(path);
@@ -277,7 +277,11 @@ public class addRecipeActivity extends AppCompatActivity {
                     File file = new File(path, String.valueOf(System.currentTimeMillis()) + ".jpg");
 
                     Recipe recipe = db.getRecipe(recipeName);
-                    recipe.setRecipe(file.toString());
+                    if(requestCode == 1) {
+                        recipe.setRecipe(file.toString());
+                    } else {
+                        recipe.addPic(file.toString());
+                    }
                     db.updateRecipe(recipeName, recipe);
 
                     try {
@@ -295,17 +299,21 @@ public class addRecipeActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } else if (requestCode == 2) {
+            } else if (requestCode == 2 || requestCode == 4) {
                 Uri selectedImage = data.getData();
                 String[] filePath = { MediaStore.Images.Media.DATA };
                 Cursor c = getContentResolver().query(selectedImage, filePath, null, null, null);
                 c.moveToFirst();
                 int columnIndex = c.getColumnIndex(filePath[0]);
-                String picturePath = c.getString(columnIndex);
+                String file = c.getString(columnIndex);
                 c.close();
 
                 Recipe recipe = db.getRecipe(recipeName);
-                recipe.setRecipe(picturePath.toString());
+                if(requestCode == 2) {
+                    recipe.setRecipe(file.toString());
+                } else {
+                    recipe.addPic(file.toString());
+                }
                 db.updateRecipe(recipeName, recipe);
             }
         }

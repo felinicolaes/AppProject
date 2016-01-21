@@ -97,6 +97,19 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/textView3" />
 
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/notes">
+
+                <LinearLayout
+                    android:id="@+id/imageGallery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:orientation="horizontal"
+                    android:paddingTop="2dp"/>
+            </HorizontalScrollView>
+
         </RelativeLayout>
 
     </ScrollView>
@@ -120,7 +133,8 @@
         android:onClick="backButton"
         android:background="@drawable/rounded_button"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp" />
 
     <ImageView
         android:layout_width="fill_parent"

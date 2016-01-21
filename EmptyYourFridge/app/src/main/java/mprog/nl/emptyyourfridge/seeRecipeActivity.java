@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -40,6 +41,9 @@ public class seeRecipeActivity extends AppCompatActivity {
 
         recipe = db.getRecipe(recipeName);
         showRecipe();
+        if (!recipe.getPics().equals("")) {
+            addImagesToTheGallery();
+        }
 
         nameText.setText(recipeName, TextView.BufferType.EDITABLE);
         notesText.setText(recipe.getNotes());
@@ -83,6 +87,41 @@ public class seeRecipeActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void addImagesToTheGallery() {
+        System.out.println("in functie");
+        ArrayList<String> picsList = recipe.getPicsList();
+        System.out.println("pics geget");
+        LinearLayout layout = (LinearLayout) findViewById(R.id.imageGallery);
+        System.out.println("layout geget");
+
+        int  i = 0;
+        System.out.println("list is " + picsList);
+        for (String pic : picsList) {
+            System.out.println("pic is " + pic);
+            ImageView imageView = new ImageView(this);
+            imageView.setId(i);
+            BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+            Bitmap bitmap = BitmapFactory.decodeFile(pic, bitmapOptions);
+            System.out.println("bitmap gemaakt "+bitmap);
+
+            imageView.setImageBitmap(bitmap);
+            System.out.println("bitmapoptions geget");
+
+            layout.addView(imageView);
+            i++;
+
+    //        imageView.setOnClickListener(new View.OnClickListener() {
+    //            @Override
+    //            public void onClick(View v) {
+    //                largeImage.setImageBitmap(bitmap);
+    //                largeImage.setVisibility(View.VISIBLE);
+    //            }
+    //        });
+            System.out.println("added view");
+        }
+    }
+
 
     public void editButton(View view) {
         Intent editRecipeIntent = new Intent(this, addRecipeActivity.class);

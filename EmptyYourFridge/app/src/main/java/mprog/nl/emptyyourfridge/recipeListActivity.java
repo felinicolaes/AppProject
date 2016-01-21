@@ -43,9 +43,12 @@ public class recipeListActivity extends AppCompatActivity {
             }
         });
 
+        System.out.print("klaar voor de start");
         db = new DatabaseHandler(this);
+        System.out.print("db gemaakt");
         if (db.getAllRecipes().size() == 0) {
             addRecipes();
+            System.out.print("add recipe");
         }
 
         makeList();
@@ -122,6 +125,7 @@ public class recipeListActivity extends AppCompatActivity {
 
 
     public void addRecipes(){
+        ArrayList<String> empty = new ArrayList<String>();
         db.addRecipe(new Recipe("Broodje gezond", "Leg alles op broodje, klaar!", "Lekker lekker",
                 makeArrayList(new String[]{"brood", "kaas", "sla"}), makeArrayList(new String[]{"2 snee", "1 plak", ""}),
                 makeArrayList(new String[]{"ham"}), makeArrayList(new String[]{"1 plak"}) ) );

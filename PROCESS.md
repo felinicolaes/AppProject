@@ -80,9 +80,13 @@
 - Made nicer design for MainActtivity: clearer placement of buttons
 - Made custom button xml rounded_button.xml
 - Added custom theme to whole app
+- TO DO:
+	- picture not found error message/catch
+	- horizontalview fix borders
+	- fixed out of memory error?
+	- onclicklistener on horizontalview images
+	- delete extra pic
 
-TO DO:
-- picture not found error message/catch
-- horizontalview fix borders
-- fixed out of memory error?
-- onclicklistener on horizontalview images
+##Day 15
+- Install Mobizen for mirroring screen
+- Fixed onclicklistener in horizontal scrollview

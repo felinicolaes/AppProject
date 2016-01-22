@@ -242,7 +242,7 @@ public class Recipe {
     public void removePic(String pic) {
         ArrayList<String> picsList = getPicsList();
         picsList.remove(pic);
-        setPosIngredient(picsList);
+        setPics(picsList);
     }
 
 }

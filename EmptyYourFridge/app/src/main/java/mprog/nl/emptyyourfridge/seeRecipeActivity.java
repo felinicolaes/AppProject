@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,13 +26,15 @@ public class seeRecipeActivity extends AppCompatActivity {
     Recipe recipe;
     ImageView smallImage;
     ImageView largeImage;
+    ArrayList<String> picsList;
+    DatabaseHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_see_recipe);
 
-        DatabaseHandler db = new DatabaseHandler(this);
+        db = new DatabaseHandler(this);
 
         Bundle extra = getIntent().getExtras();
         recipeName = extra.getString("RecipeName");
@@ -57,14 +62,29 @@ public class seeRecipeActivity extends AppCompatActivity {
     }
 
     public void showRecipe() {
+        largeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                largeImage.setVisibility(View.GONE);
+            }
+        });
         if (recipe.getRecipe().endsWith(".jpg")) {
-            TextView recipeText = (TextView) findViewById(R.id.recipe);
-            recipeText.setVisibility(View.GONE);
             BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-            Bitmap bitmap = BitmapFactory.decodeFile(recipe.getRecipe(), bitmapOptions);
-            smallImage.setImageBitmap(bitmap);
-            largeImage.setImageBitmap(bitmap);
-            clickPictures();
+            if (BitmapFactory.decodeFile(recipe.getRecipe(), bitmapOptions) == null) {
+                recipe.setRecipe("");
+            } else{
+                TextView recipeText = (TextView) findViewById(R.id.recipe);
+                recipeText.setVisibility(View.GONE);
+                Bitmap bitmap = BitmapFactory.decodeFile(recipe.getRecipe(), bitmapOptions);
+                smallImage.setImageBitmap(bitmap);
+                largeImage.setImageBitmap(bitmap);
+                smallImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        largeImage.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
         } else {
             ImageView recipeImage = (ImageView) findViewById(R.id.recipeImage);
             recipeImage.setVisibility(View.GONE);
@@ -73,55 +93,55 @@ public class seeRecipeActivity extends AppCompatActivity {
         }
     }
 
-    public void clickPictures() {
-        smallImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                largeImage.setVisibility(View.VISIBLE);
-            }
-        });
-        largeImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                largeImage.setVisibility(View.GONE);
-            }
-        });
-    }
-
     private void addImagesToTheGallery() {
         System.out.println("in functie");
-        ArrayList<String> picsList = recipe.getPicsList();
+        picsList = recipe.getPicsList();
         System.out.println("pics geget");
         LinearLayout layout = (LinearLayout) findViewById(R.id.imageGallery);
         System.out.println("layout geget");
+        System.out.println("size piclist "+picsList.size());
 
-        int  i = 0;
         System.out.println("list is " + picsList);
-        for (String pic : picsList) {
-            System.out.println("pic is " + pic);
-            ImageView imageView = new ImageView(this);
-            imageView.setId(i);
-            BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-            Bitmap bitmap = BitmapFactory.decodeFile(pic, bitmapOptions);
-            System.out.println("bitmap gemaakt "+bitmap);
-
-            imageView.setImageBitmap(bitmap);
-            System.out.println("bitmapoptions geget");
-
-            layout.addView(imageView);
-            i++;
-
-    //        imageView.setOnClickListener(new View.OnClickListener() {
-    //            @Override
-    //            public void onClick(View v) {
-    //                largeImage.setImageBitmap(bitmap);
-    //                largeImage.setVisibility(View.VISIBLE);
-    //            }
-    //        });
-            System.out.println("added view");
+        for (int i = 0; i < picsList.size(); i++) {
+                System.out.println("set pic number "+i);
+                layout.addView(getImageView(i));
         }
     }
 
+    public ImageView getImageView(final int i){
+        final ImageView imageView = new ImageView(this);
+        imageView.setId(i);
+        BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+        Bitmap bitmap = BitmapFactory.decodeFile(picsList.get(i), bitmapOptions);
+        imageView.setImageBitmap(bitmap);
+
+        imageView.setLongClickable(true);
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+                Bitmap bitmap = BitmapFactory.decodeFile(picsList.get(i), bitmapOptions);
+                largeImage.setImageBitmap(bitmap);
+                largeImage.setVisibility(View.VISIBLE);
+                System.out.println("clicked pic number " + i);
+            }
+        });
+
+        imageView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                imageView.setVisibility(View.GONE);
+                System.out.println("removed pic number " + i);
+                recipe.removePic(picsList.get(i));
+                db.updateRecipe(recipeName, recipe);
+                picsList = recipe.getPicsList();
+                return true;
+            }
+        });
+
+        return imageView;
+    }
 
     public void editButton(View view) {
         Intent editRecipeIntent = new Intent(this, addRecipeActivity.class);

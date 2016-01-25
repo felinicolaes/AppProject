@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Ingredients"
-        android:id="@+id/textView"
+        android:id="@+id/ingredientsText"
         android:layout_below="@+id/name"
         android:layout_alignParentStart="true"
         android:paddingTop="10dp" />
@@ -37,7 +37,7 @@
         android:layout_height="135dp"
         android:id="@+id/ingredients"
         android:longClickable="true"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/ingredientsText"
         android:layout_alignParentStart="true" />
 
     <ScrollView
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Recipe"
-                android:id="@+id/textView4"
+                android:id="@+id/recipeText"
                 android:layout_alignParentStart="true" />
 
             <ImageView
@@ -68,7 +68,7 @@
                 android:layout_height="100dp"
                 android:id="@+id/recipeImage"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/textView4"
+                android:layout_below="@+id/recipeText"
                 android:clickable="true" />
 
             <TextView
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Extras"
-                android:id="@+id/textView3"
+                android:id="@+id/extraText"
                 android:paddingTop="10dp"
                 android:layout_below="@+id/recipe"
                 android:layout_alignParentStart="true"/>
@@ -95,7 +95,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/notes"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/textView3" />
+                android:layout_below="@+id/extraText" />
 
             <HorizontalScrollView
                 android:layout_width="match_parent"

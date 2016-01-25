@@ -1,7 +1,5 @@
 package mprog.nl.emptyyourfridge;
 
-import android.media.Image;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -9,7 +7,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
- * Created by Feli on 8-1-2016.
+ * Empty Your Fridge App - Feli Nicolaes, feli.nicolaes@uva.student.nl
+ *
+ * Recipe is a custom object containing all information about a recipe
  */
 public class Recipe {
     String necIngredients;
@@ -23,6 +23,8 @@ public class Recipe {
     Gson necGson;
     Gson posGson;
 
+    /* Constructs recipe where ingredients are unknown
+     */
     public Recipe(String name, String recipe, String notes) {
         this.name = name;
         ArrayList<String> empty = new ArrayList<String>();
@@ -37,6 +39,8 @@ public class Recipe {
         this.notes = notes;
     }
 
+    /* Constructs recipe where ingredients are known
+     */
     public Recipe(String name, String recipe, String notes, ArrayList<String> necIngredients, ArrayList<String> necAmount,
                   ArrayList<String> posIngredients, ArrayList<String> posAmount) {
         this.name = name;
@@ -51,6 +55,8 @@ public class Recipe {
         this.notes = notes;
     }
 
+    /* Constructs recipe for database, where ArrayLists are made into strings
+     */
     public Recipe(String name, String recipe, String notes, String necIngredients, String necAmount,
                   String posIngredients, String posAmount, String pictArray) {
         this.name = name;
@@ -207,7 +213,7 @@ public class Recipe {
     }
 
     /*
-        REMOVE FUNCTTIONS
+        REMOVE FUNCTIONS
      */
     public void removeIngredient(String ingredient) {
         ArrayList<String> necIngredientsList = getNecIngredientList();
@@ -244,5 +250,4 @@ public class Recipe {
         picsList.remove(pic);
         setPics(picsList);
     }
-
 }

@@ -14,8 +14,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class recipeListActivity extends AppCompatActivity {
+/**
+ * Empty Your Fridge App - Feli Nicolaes, feli.nicolaes@uva.student.nl
+ *
+ * RecipeListActivity shows the user all the recipes in the database
+ */
 
+public class recipeListActivity extends AppCompatActivity {
     ArrayList<String> items;
     ListView listView;
     DatabaseHandler db;
@@ -29,6 +34,23 @@ public class recipeListActivity extends AppCompatActivity {
         recipes = new ArrayList<Recipe>();
         items = new ArrayList<String>();
 
+        db = new DatabaseHandler(this);
+        //Add some default recipes if the database is empty
+        if (db.getAllRecipes().size() == 0) {
+            Toast.makeText(getApplicationContext(),
+                    "No recipes were added yet, so we added some simple ones for you go get started!",
+                    Toast.LENGTH_SHORT).show();
+            addRecipes();
+        }
+
+        setOnClickListeners();
+        makeList();
+    }
+
+    /* Set onClickListener for normal and long click to the ListView-items
+     */
+    public void setOnClickListeners() {
+        //Go to recipe if recipe is clicked
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int i, long id) {
                 Object recipeName = listView.getItemAtPosition(i);
@@ -36,35 +58,32 @@ public class recipeListActivity extends AppCompatActivity {
             }
         });
 
+        //Delete recipe if recipe is clicked
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int i, long id) {
                 deleteItem(i);
                 return true;
             }
         });
-
-        System.out.print("klaar voor de start");
-        db = new DatabaseHandler(this);
-        System.out.print("db gemaakt");
-        if (db.getAllRecipes().size() == 0) {
-            addRecipes();
-            System.out.print("add recipe");
-        }
-
-        makeList();
     }
 
+    /* Go to seeRecipeIntent, where the user can see the recipe in detail
+     */
     public void seeRecipe(Object recipeName) {
         Intent seeRecipeIntent = new Intent(this, seeRecipeActivity.class);
         seeRecipeIntent.putExtra("RecipeName", recipeName.toString());
         startActivity(seeRecipeIntent);
     }
 
+    /* If backButton is clicked, go back to the MainActivity
+     */
     public void backButton(View view) {
         Intent mainActivityIntent = new Intent(this, MainActivity.class);
         startActivity(mainActivityIntent);
     }
 
+    /* Show a list containing all recipes
+     */
     public void makeList() {
         getFilteredRecipes();
         ArrayAdapter<String> adapter =
@@ -72,6 +91,8 @@ public class recipeListActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
+    /* Ask the user whether he really wants to remove a recipe from the database
+     */
     public void deleteItem(int i) {
         final int item = i;
         new AlertDialog.Builder(this)
@@ -91,12 +112,16 @@ public class recipeListActivity extends AppCompatActivity {
                 .show();
     }
 
+    /* Delete a recipe from the database and listview
+     */
     public void reallyDelete(int i) {
         db.deleteRecipe(recipes.get(i));
         makeList();
         Toast.makeText(getApplicationContext(), "Item removed", Toast.LENGTH_LONG).show();
     }
 
+    /* Get all recipes containing certain ingredients
+     */
     public void getFilteredRecipes() {
         items.clear();
         recipes = db.getAllRecipes();
@@ -112,6 +137,8 @@ public class recipeListActivity extends AppCompatActivity {
 
     }
 
+    /* Get all ingredients the recipes have to be filtered on
+     */
     public ArrayList<String> getPrevIngredients() {
         SharedPreferences settings = getSharedPreferences("MyPrefsFile", 0);
         Map<String, ?> allPrefs = settings.getAll();
@@ -123,7 +150,8 @@ public class recipeListActivity extends AppCompatActivity {
         return ingredients;
     }
 
-
+    /* Add some default recipes if no recipes were present in the database
+     */
     public void addRecipes(){
         ArrayList<String> empty = new ArrayList<String>();
         db.addRecipe(new Recipe("Broodje gezond", "Leg alles op broodje, klaar!", "Lekker lekker",
@@ -140,6 +168,8 @@ public class recipeListActivity extends AppCompatActivity {
                 makeArrayList(new String[]{"kaas", "jam"}), makeArrayList(new String[]{"", ""}) ) );
     }
 
+    /* Make an ArrayList from a String[]
+     */
     public ArrayList<String> makeArrayList(String[] strings) {
         ArrayList<String> list = new ArrayList<String>();
         for (String s : strings)

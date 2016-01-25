@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Long-press an item to remove it"
-        android:id="@+id/textRemove"
+        android:id="@+id/removeText"
         android:layout_alignBottom="@+id/plusIngredient"
         android:layout_toStartOf="@+id/plusIngredient" />
 
@@ -27,7 +27,7 @@
         android:id="@+id/ingredients"
         android:layout_weight="2"
         android:layout_alignParentTop="false"
-        android:layout_below="@+id/textRemove"
+        android:layout_below="@+id/removeText"
         android:layout_above="@+id/searchButton" />
 
     <Button
@@ -68,8 +68,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Filter on ingredient"
-        android:id="@+id/textView5"
-        android:layout_above="@+id/textRemove"
+        android:id="@+id/filterText"
+        android:layout_above="@+id/removeText"
         android:layout_toStartOf="@+id/plusIngredient" />
 
 

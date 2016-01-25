@@ -9,11 +9,19 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * Empty Your Fridge App - Feli Nicolaes, feli.nicolaes@uva.student.nl
+ *
+ * IngredientList is a custom ListView showing ingredients with their amounts and optionality
+ */
+
 public class IngredientList extends ArrayAdapter<String>{
 
     private final Activity context;
     ArrayList<String> necAmounts, necIngredients,posAmounts, posIngredients;
 
+    /* Constructior sets variables
+     */
     public IngredientList(Activity context, ArrayList<String> necAmounts, ArrayList<String> necIngredients,
                           ArrayList<String> posAmounts, ArrayList<String> posIngredients,
                           ArrayList<String> allIngredients) {
@@ -34,6 +42,7 @@ public class IngredientList extends ArrayAdapter<String>{
         TextView ingredient = (TextView) itemView.findViewById(R.id.ingredient);
         TextView optional = (TextView) itemView.findViewById(R.id.optional);
 
+        //Fill textviews with the right information
         if (i < necAmounts.size()) {
             amount.setText(necAmounts.get(i));
             ingredient.setText(necIngredients.get(i));

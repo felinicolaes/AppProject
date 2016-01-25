@@ -90,3 +90,10 @@
 ##Day 15
 - Install Mobizen for mirroring screen
 - Fixed onclicklistener in horizontal scrollview
+- onclicklistener and onlongclicklistener on horizontalscroll images
+
+##Day 16
+- TO DO:
+	- picture not found error message/catch
+	- horizontalview fix borders
+	- fix/overwrite standard android back button

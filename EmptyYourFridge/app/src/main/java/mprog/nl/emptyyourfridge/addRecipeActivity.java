@@ -153,9 +153,6 @@ public class addRecipeActivity extends AppCompatActivity {
      */
     public void addIngredientButton(View view) {
         if (checkIfLegalName()) {
-            if (prevActivity.equals("MainActivity")) {
-                db.addRecipe(new Recipe(nameText.getText().toString(), "", ""));
-            }
             Intent addIngredientIntent = new Intent(this, addIngredientActivity.class);
             addIngredientIntent.putExtra("ActivityName", "addRecipeActivity");
             addIngredientIntent.putExtra("RecipeName", nameText.getText().toString());
@@ -167,7 +164,9 @@ public class addRecipeActivity extends AppCompatActivity {
      * accordingly
      */
     public void addRecipePictButton(View view) {
-        sureChangeRecipe("picture");
+        if(checkIfLegalName()) {
+            sureChangeRecipe("picture");
+        }
     }
 
     /* Show a dialog to add a picture to the recipe from the gallery or camera app
@@ -209,14 +208,7 @@ public class addRecipeActivity extends AppCompatActivity {
     /* If addRecipeTextButton clicked, add a recipe using text
      */
     public void addRecipeTextButton(View view) {
-        String name = nameText.getText().toString();
-        if (name.equals("")) {
-            Toast.makeText(addRecipeActivity.this, "Please enter a name", Toast.LENGTH_SHORT).show();
-        } else if (getAllNames().contains(name) && prevActivity.equals("MainActivity")) {
-            Toast.makeText(addRecipeActivity.this, "This name is taken, please change it", Toast.LENGTH_SHORT).show();
-        } else if (db.getRecipe(name).getRecipe().endsWith(".jpg")){
-            sureChangeRecipe("text");
-        } else {
+        if(checkIfLegalName()) {
             addRecipeText();
         }
     }
@@ -224,9 +216,6 @@ public class addRecipeActivity extends AppCompatActivity {
     /* Go to the typeRecipeIntent to add text as a recipe
      */
     public void addRecipeText() {
-        if (prevActivity.equals("MainActivity")) {
-            db.addRecipe(new Recipe(nameText.getText().toString(), "", ""));
-        }
         Intent typeRecipeIntent = new Intent(this, typeRecipeActivity.class);
         typeRecipeIntent.putExtra("TextKind", "recipe");
         typeRecipeIntent.putExtra("RecipeName", nameText.getText().toString());
@@ -242,7 +231,18 @@ public class addRecipeActivity extends AppCompatActivity {
         } else if (getAllNames().contains(nameText.getText().toString()) && !nameText.getText().toString().equals(recipeName)) {
             Toast.makeText(addRecipeActivity.this, "This name is taken, please change it", Toast.LENGTH_SHORT).show();
             return false;
+        } else if (nameText.getText().toString().equals(recipeName)) {
+            System.out.println("nothing changed");
+            return true;
+        } else if (prevActivity.equals("MainActivity")){
+            db.addRecipe(new Recipe(nameText.getText().toString(), "", ""));
+            return true;
         } else {
+            System.out.println("recipe name changed");
+            Recipe recipe = db.getRecipe(recipeName);
+            recipe.setName(nameText.getText().toString());
+            db.updateRecipe(recipeName, recipe);
+            recipeName = nameText.getText().toString();
             return true;
         }
     }
@@ -343,16 +343,15 @@ public class addRecipeActivity extends AppCompatActivity {
     /* If addExtraPictButton clicked, add an extra picture to the recipe
      */
     public void addExtraPictButton(View view) {
-        addRecipePict("extra");
+        if(checkIfLegalName()) {
+            addRecipePict("extra");
+        }
     }
 
     /* If addExtraTextButton clicked, add notes to the recipe
      */
     public void addExtraTextButton(View view) {
         if (checkIfLegalName()) {
-            if (prevActivity.equals("MainActivity")) {
-                db.addRecipe(new Recipe(nameText.getText().toString(), "", ""));
-            }
             Intent typeRecipeIntent = new Intent(this, typeRecipeActivity.class);
             typeRecipeIntent.putExtra("TextKind", "extra");
             typeRecipeIntent.putExtra("RecipeName", nameText.getText().toString());
@@ -364,16 +363,6 @@ public class addRecipeActivity extends AppCompatActivity {
      */
     public void saveRecipeButton(View view) {
         if (checkIfLegalName()) {
-            if (prevActivity.equals("MainActivity")) {
-                recipeName = nameText.getText().toString();
-                db.addRecipe(new Recipe(recipeName, "", ""));
-            }
-            if (!nameText.getText().toString().equals(recipeName)) {
-                Recipe newRecipe = db.getRecipe(recipeName);
-                newRecipe.setName(nameText.getText().toString());
-                db.updateRecipe(recipeName, newRecipe);
-            }
-
             Intent seeRecipeIntent = new Intent(this, seeRecipeActivity.class);
             seeRecipeIntent.putExtra("RecipeName", nameText.getText().toString());
             startActivity(seeRecipeIntent);

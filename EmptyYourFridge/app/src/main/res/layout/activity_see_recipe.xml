@@ -34,6 +34,7 @@
 
     <ListView
         android:layout_width="wrap_content"
+        android:listSelector="@android:color/transparent"
         android:layout_height="135dp"
         android:id="@+id/ingredients"
         android:longClickable="true"

@@ -94,6 +94,7 @@
 
 ##Day 16
 - Commented all code
+- Wrote readme
 - TO DO:
 	- picture not found error message/catch
 	- horizontalview fix borders
@@ -101,3 +102,16 @@
 	- double check out of memory error
 	- save changed name before going to addIngredientActivity
 	- write copyright thingie
+
+##Day 17
+- Structured code
+- Disabled highlighting listview seeRecipeActivity
+- Saving names in addRecipeActivity fixed
+- Wrote part report
+- Tested app
+	- Still have out of memory error if adding >5 pictures
+	- Horizontalview borders (I found out these borders are part of the clickable imageview!)
+	- overwrite android back button
+		- editrecipe ->listview, then delete edited/made recipe, click back and try to edit it
+	- piclist seeRecipeActivity still has printstatements
+	- finish report and copyright readme

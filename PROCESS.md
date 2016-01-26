@@ -93,7 +93,11 @@
 - onclicklistener and onlongclicklistener on horizontalscroll images
 
 ##Day 16
+- Commented all code
 - TO DO:
 	- picture not found error message/catch
 	- horizontalview fix borders
 	- fix/overwrite standard android back button
+	- double check out of memory error
+	- save changed name before going to addIngredientActivity
+	- write copyright thingie

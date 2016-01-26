@@ -6,23 +6,21 @@ import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.File;
 import java.util.ArrayList;
 
-public class seeRecipeActivity extends AppCompatActivity {
+/**
+ * Empty Your Fridge App - Feli Nicolaes, feli.nicolaes@uva.student.nl
+ *
+ * seeRecipeActivity shows all information about a recipe
+ */
 
+public class seeRecipeActivity extends AppCompatActivity {
     String recipeName;
     Recipe recipe;
     ImageView smallImage;
@@ -36,55 +34,59 @@ public class seeRecipeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_see_recipe);
 
         db = new DatabaseHandler(this);
-
         Bundle extra = getIntent().getExtras();
-        recipeName = extra.getString("RecipeName");
-        TextView nameText = (TextView) findViewById(R.id.name);
-        TextView notesText = (TextView) findViewById(R.id.notes);
-        ListView ingredientsView = (ListView) findViewById(R.id.ingredients);
-        largeImage = (ImageView) findViewById(R.id.largeImage);
-        smallImage = (ImageView) findViewById(R.id.recipeImage);
 
+        recipeName = extra.getString("RecipeName");
         recipe = db.getRecipe(recipeName);
-        showRecipe();
+
         if (!recipe.getPics().equals("")) {
             addImagesToTheGallery();
         }
 
+        setRecipeViews();
+        showRecipe();
+        makeList();
+    }
+
+    /* Set and make all TextViews and ImageViews
+     */
+    public void setRecipeViews() {
+        TextView nameText = (TextView) findViewById(R.id.name);
+        TextView notesText = (TextView) findViewById(R.id.notes);
         nameText.setText(recipeName, TextView.BufferType.EDITABLE);
         notesText.setText(recipe.getNotes());
 
-        ArrayAdapter<String> adapter = new IngredientList(seeRecipeActivity.this, recipe.getNecAmountList(),
-                recipe.getNecIngredientList(), recipe.getPosAmountList(), recipe.getPosIngredientList(),
-                recipe.getAllIngredientPrint());
-        ingredientsView.setAdapter(adapter);
-
+        smallImage = (ImageView) findViewById(R.id.recipeImage);
+        largeImage = (ImageView) findViewById(R.id.largeImage);
         largeImage.setVisibility(View.GONE);
-    }
 
-    public void showRecipe() {
         largeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 largeImage.setVisibility(View.GONE);
             }
         });
+    }
+
+    /* Show list containing all ingredients of this recipe
+     */
+    public void makeList() {
+        ListView ingredientsView = (ListView) findViewById(R.id.ingredients);
+
+        ArrayAdapter<String> adapter = new IngredientList(seeRecipeActivity.this, recipe.getNecAmountList(),
+                recipe.getNecIngredientList(), recipe.getPosAmountList(), recipe.getPosIngredientList(),
+                recipe.getAllIngredientPrint());
+        ingredientsView.setAdapter(adapter);
+    }
+
+    /* Show the recipe-text if the recipe has text or the recipeImage if the recipe has an image
+     */
+    public void showRecipe() {
         if (recipe.getRecipe().endsWith(".jpg")) {
-            BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-            if (BitmapFactory.decodeFile(recipe.getRecipe(), bitmapOptions) == null) {
+            if (BitmapFactory.decodeFile(recipe.getRecipe(), new BitmapFactory.Options()) == null) {
                 recipe.setRecipe("");
             } else{
-                TextView recipeText = (TextView) findViewById(R.id.recipe);
-                recipeText.setVisibility(View.GONE);
-                Bitmap bitmap = BitmapFactory.decodeFile(recipe.getRecipe(), bitmapOptions);
-                smallImage.setImageBitmap(bitmap);
-                largeImage.setImageBitmap(bitmap);
-                smallImage.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        largeImage.setVisibility(View.VISIBLE);
-                    }
-                });
+                showRecipeImage();
             }
         } else {
             ImageView recipeImage = (ImageView) findViewById(R.id.recipeImage);
@@ -94,13 +96,32 @@ public class seeRecipeActivity extends AppCompatActivity {
         }
     }
 
+    /* Set the recipe image and set an on click listener to enlarge it
+     */
+    private void showRecipeImage() {
+        TextView recipeText = (TextView) findViewById(R.id.recipe);
+        recipeText.setVisibility(View.GONE);
+        Bitmap bitmap = BitmapFactory.decodeFile(recipe.getRecipe(), new BitmapFactory.Options());
+
+        smallImage.setImageBitmap(bitmap);
+        largeImage.setImageBitmap(bitmap);
+        smallImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                largeImage.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    /* Get all extra images and show them in a gallery-like layout
+     */
     private void addImagesToTheGallery() {
         System.out.println("in functie");
         picsList = recipe.getPicsList();
         System.out.println("pics geget");
         LinearLayout layout = (LinearLayout) findViewById(R.id.imageGallery);
         System.out.println("layout geget");
-        System.out.println("size piclist "+picsList.size());
+        System.out.println("size piclist " + picsList.size());
 
         System.out.println("list is " + picsList);
         for (int i = 0; i < picsList.size(); i++) {
@@ -109,7 +130,9 @@ public class seeRecipeActivity extends AppCompatActivity {
         }
     }
 
-    public ImageView getImageView(final int i){
+    /* Make an ImageView to show the extra image in
+     */
+    public ImageView getImageView(int i){
         final ImageView imageView = new ImageView(this);
         imageView.setId(i);
         BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
@@ -120,8 +143,14 @@ public class seeRecipeActivity extends AppCompatActivity {
   //      lp.setMargins(0,0,0,0);
   //      imageView.setLayoutParams(lp);
 
-        imageView.setLongClickable(true);
+        setClickListeners(imageView, i);
 
+        return imageView;
+    }
+
+    public void setClickListeners(final ImageView imageView, final int i) {
+        //enlarge if clicked on image
+        imageView.setLongClickable(true);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,25 +158,24 @@ public class seeRecipeActivity extends AppCompatActivity {
                 Bitmap bitmap = BitmapFactory.decodeFile(picsList.get(i), bitmapOptions);
                 largeImage.setImageBitmap(bitmap);
                 largeImage.setVisibility(View.VISIBLE);
-                System.out.println("clicked pic number " + i);
             }
         });
 
+        //delete if long clicked on image
         imageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 imageView.setVisibility(View.GONE);
-                System.out.println("removed pic number " + i);
                 recipe.removePic(picsList.get(i));
                 db.updateRecipe(recipeName, recipe);
                 picsList = recipe.getPicsList();
                 return true;
             }
         });
-
-        return imageView;
     }
 
+    /* If editButton clicked, go to editRecipeActivity to edit this recipe
+     */
     public void editButton(View view) {
         Intent editRecipeIntent = new Intent(this, addRecipeActivity.class);
         editRecipeIntent.putExtra("RecipeName", recipeName);
@@ -155,6 +183,8 @@ public class seeRecipeActivity extends AppCompatActivity {
         startActivity(editRecipeIntent);
     }
 
+    /* If backButton clicked, go to recipeListActivitu
+     */
     public void backButton(View view) {
         Intent recipeListIntent = new Intent(this, recipeListActivity.class);
         recipeListIntent.putExtra("RecipeName", recipeName);

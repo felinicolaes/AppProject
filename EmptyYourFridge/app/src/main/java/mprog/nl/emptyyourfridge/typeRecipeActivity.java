@@ -4,8 +4,13 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
+
+/**
+ * Empty Your Fridge App - Feli Nicolaes, feli.nicolaes@uva.student.nl
+ *
+ * seeRecipeActivity shows all information about a recipe
+ */
 
 public class typeRecipeActivity extends AppCompatActivity {
     String recipeName;
@@ -18,22 +23,24 @@ public class typeRecipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_type_recipe);
 
-        db = new DatabaseHandler(this);
-        setEditText();
-    }
-
-    public void setEditText() {
         Bundle extra = getIntent().getExtras();
         recipeName = extra.getString("RecipeName");
         textKind = extra.getString("TextKind");
 
         TextView nameText = (TextView) findViewById(R.id.name);
         TextView kindText = (TextView) findViewById(R.id.kind);
-        mainText = (TextView) findViewById(R.id.mainText);
-        Recipe recipe = db.getRecipe(recipeName);
-
         nameText.setText(recipeName, TextView.BufferType.EDITABLE);
         kindText.setText("edit " + textKind, TextView.BufferType.EDITABLE);
+
+        db = new DatabaseHandler(this);
+        setEditText();
+    }
+
+    /* Set previously typed recipe/notes as text so user can easily change them
+     */
+    public void setEditText() {
+        mainText = (TextView) findViewById(R.id.mainText);
+        Recipe recipe = db.getRecipe(recipeName);
 
         if (textKind.equals("recipe") && !recipe.getRecipe().endsWith(".jpg")) {
             mainText.setText(recipe.getRecipe(), TextView.BufferType.EDITABLE);
@@ -42,6 +49,8 @@ public class typeRecipeActivity extends AppCompatActivity {
         }
     }
 
+    /* If saveButton clicked, save the typed text and bring user back to editRecipeActivity
+     */
     public void saveButton(View view) {
         Recipe recipe = db.getRecipe(recipeName);
         if (textKind.equals("recipe")) {

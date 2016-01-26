@@ -101,7 +101,6 @@ public class recipeListActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         reallyDelete(item);
-                        Toast.makeText(getApplicationContext(), "Item removed", Toast.LENGTH_LONG).show();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -117,7 +116,7 @@ public class recipeListActivity extends AppCompatActivity {
     public void reallyDelete(int i) {
         db.deleteRecipe(recipes.get(i));
         makeList();
-        Toast.makeText(getApplicationContext(), "Item removed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Item removed", Toast.LENGTH_SHORT).show();
     }
 
     /* Get all recipes containing certain ingredients
@@ -134,7 +133,6 @@ public class recipeListActivity extends AppCompatActivity {
                 }
             }
         }
-
     }
 
     /* Get all ingredients the recipes have to be filtered on

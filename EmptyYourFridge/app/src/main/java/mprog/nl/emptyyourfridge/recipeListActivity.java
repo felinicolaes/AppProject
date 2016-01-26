@@ -75,13 +75,6 @@ public class recipeListActivity extends AppCompatActivity {
         startActivity(seeRecipeIntent);
     }
 
-    /* If backButton is clicked, go back to the MainActivity
-     */
-    public void backButton(View view) {
-        Intent mainActivityIntent = new Intent(this, MainActivity.class);
-        startActivity(mainActivityIntent);
-    }
-
     /* Show a list containing all recipes
      */
     public void makeList() {
@@ -175,6 +168,13 @@ public class recipeListActivity extends AppCompatActivity {
             list.add(s);
         }
         return list;
+    }
+
+    /* If backButton is clicked, go back to the MainActivity
+     */
+    public void backButton(View view) {
+        Intent mainActivityIntent = new Intent(this, MainActivity.class);
+        startActivity(mainActivityIntent);
     }
 }
 

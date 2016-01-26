@@ -104,6 +104,30 @@ public class addRecipeActivity extends AppCompatActivity {
         db.updateRecipe(recipeName, recipe);
     }
 
+    /* Display an alert asking the user whether he really wants to delete the old recipe
+     * text/picture and start over
+     */
+    public void sureChangeRecipe(final String recipeKind) {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete item")
+                .setMessage("Are you sure you want to delete the old recipe and start a new one?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(recipeKind.equals("picture")) {
+                            addRecipePict("recipe");
+                        } else {
+                            addRecipeText();
+                        }
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .show();
+    }
+
     /* Delete an ingredient from the recipe
      */
     public void deleteItem(int i) {
@@ -122,30 +146,6 @@ public class addRecipeActivity extends AppCompatActivity {
             allNames.add(recipe.getName());
         }
         return allNames;
-    }
-
-    /* Display an alert asking the user whether he really wants to delete the old recipe
-     * text/picture and start over
-     */
-    public void sureChangeRecipe(final String recipeKind) {
-        new AlertDialog.Builder(this)
-            .setTitle("Delete item")
-            .setMessage("Are you sure you want to delete the old recipe and start a new one?")
-            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                if(recipeKind.equals("picture")) {
-                    addRecipePict("recipe");
-                } else {
-                    addRecipeText();
-                }
-                }
-            })
-            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    // do nothing
-                }
-            })
-            .show();
     }
 
     /* If addIngredientButton clicked, go to the addIngredientActivity to add a new ingredient to
@@ -233,46 +233,8 @@ public class addRecipeActivity extends AppCompatActivity {
         startActivity(typeRecipeIntent);
     }
 
-    /* If addExtraPictButton clicked, add an extra picture to the recipe
+    /* Checks if the entered name is not already chosen or empty
      */
-    public void addExtraPictButton(View view) {
-        addRecipePict("extra");
-    }
-
-    /* If addExtraTextButton clicked, add notes to the recipe
-     */
-    public void addExtraTextButton(View view) {
-        if (checkIfLegalName()) {
-            if (prevActivity.equals("MainActivity")) {
-                db.addRecipe(new Recipe(nameText.getText().toString(), "", ""));
-            }
-            Intent typeRecipeIntent = new Intent(this, typeRecipeActivity.class);
-            typeRecipeIntent.putExtra("TextKind", "extra");
-            typeRecipeIntent.putExtra("RecipeName", nameText.getText().toString());
-            startActivity(typeRecipeIntent);
-        }
-    }
-
-    /* If saveRecipeButton clicked, save the recipe
-     */
-    public void saveRecipeButton(View view) {
-        if (checkIfLegalName()) {
-            if (prevActivity.equals("MainActivity")) {
-                recipeName = nameText.getText().toString();
-                db.addRecipe(new Recipe(recipeName, "", ""));
-            }
-            if (!nameText.getText().toString().equals(recipeName)) {
-                Recipe newRecipe = db.getRecipe(recipeName);
-                newRecipe.setName(nameText.getText().toString());
-                db.updateRecipe(recipeName, newRecipe);
-            }
-
-            Intent seeRecipeIntent = new Intent(this, seeRecipeActivity.class);
-            seeRecipeIntent.putExtra("RecipeName", nameText.getText().toString());
-            startActivity(seeRecipeIntent);
-        }
-    }
-
     public boolean checkIfLegalName() {
         if (nameText.getText().toString().equals("")) {
             Toast.makeText(addRecipeActivity.this, "Please enter a name", Toast.LENGTH_SHORT).show();
@@ -376,5 +338,45 @@ public class addRecipeActivity extends AppCompatActivity {
             recipe.addPic(file.toString());
         }
         db.updateRecipe(recipeName, recipe);
+    }
+
+    /* If addExtraPictButton clicked, add an extra picture to the recipe
+     */
+    public void addExtraPictButton(View view) {
+        addRecipePict("extra");
+    }
+
+    /* If addExtraTextButton clicked, add notes to the recipe
+     */
+    public void addExtraTextButton(View view) {
+        if (checkIfLegalName()) {
+            if (prevActivity.equals("MainActivity")) {
+                db.addRecipe(new Recipe(nameText.getText().toString(), "", ""));
+            }
+            Intent typeRecipeIntent = new Intent(this, typeRecipeActivity.class);
+            typeRecipeIntent.putExtra("TextKind", "extra");
+            typeRecipeIntent.putExtra("RecipeName", nameText.getText().toString());
+            startActivity(typeRecipeIntent);
+        }
+    }
+
+    /* If saveRecipeButton clicked, save the recipe
+     */
+    public void saveRecipeButton(View view) {
+        if (checkIfLegalName()) {
+            if (prevActivity.equals("MainActivity")) {
+                recipeName = nameText.getText().toString();
+                db.addRecipe(new Recipe(recipeName, "", ""));
+            }
+            if (!nameText.getText().toString().equals(recipeName)) {
+                Recipe newRecipe = db.getRecipe(recipeName);
+                newRecipe.setName(nameText.getText().toString());
+                db.updateRecipe(recipeName, newRecipe);
+            }
+
+            Intent seeRecipeIntent = new Intent(this, seeRecipeActivity.class);
+            seeRecipeIntent.putExtra("RecipeName", nameText.getText().toString());
+            startActivity(seeRecipeIntent);
+        }
     }
 }

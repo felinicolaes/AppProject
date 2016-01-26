@@ -51,6 +51,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /* Makes a list with all the ingredients the user wants to filter on
+     */
+    public void makeList() {
+        getPrevIngredients();
+        listView = (ListView) findViewById(R.id.ingredients);
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,android.R.id.text1, items);
+        listView.setAdapter(adapter);
+    }
+
     /* Gets the ingredients that were added to the filter earlier
      */
     public void getPrevIngredients() {
@@ -60,16 +70,6 @@ public class MainActivity extends AppCompatActivity {
         for (Map.Entry<String, ?> entry : allPrefs.entrySet()) {
             items.add(entry.getKey().toLowerCase());
         }
-    }
-
-    /* Makes a list with all the ingredients the user wants to filter on
-     */
-    public void makeList() {
-        getPrevIngredients();
-        listView = (ListView) findViewById(R.id.ingredients);
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,android.R.id.text1, items);
-        listView.setAdapter(adapter);
     }
 
     /* Delete an ingredient from the list with ingredients the user wants to filter on

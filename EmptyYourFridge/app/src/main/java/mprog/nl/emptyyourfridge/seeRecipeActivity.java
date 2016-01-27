@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -125,8 +126,8 @@ public class seeRecipeActivity extends AppCompatActivity {
 
         System.out.println("list is " + picsList);
         for (int i = 0; i < picsList.size(); i++) {
-                System.out.println("set pic number "+i);
-                layout.addView(getImageView(i));
+            System.out.println("set pic number "+i);
+            layout.addView(getImageView(i));
         }
     }
 
@@ -138,24 +139,21 @@ public class seeRecipeActivity extends AppCompatActivity {
         BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
         Bitmap bitmap = BitmapFactory.decodeFile(picsList.get(i), bitmapOptions);
         imageView.setImageBitmap(bitmap);
+        imageView.setAdjustViewBounds(true);
 
-  //      ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) imageView.getLayoutParams();
-  //      lp.setMargins(0,0,0,0);
-  //      imageView.setLayoutParams(lp);
-
-        setClickListeners(imageView, i);
+        setClickListeners(imageView, picsList.get(i));
 
         return imageView;
     }
 
-    public void setClickListeners(final ImageView imageView, final int i) {
+    public void setClickListeners(final ImageView imageView, final String path) {
         //enlarge if clicked on image
         imageView.setLongClickable(true);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-                Bitmap bitmap = BitmapFactory.decodeFile(picsList.get(i), bitmapOptions);
+                Bitmap bitmap = BitmapFactory.decodeFile(path, bitmapOptions);
                 largeImage.setImageBitmap(bitmap);
                 largeImage.setVisibility(View.VISIBLE);
             }
@@ -165,8 +163,9 @@ public class seeRecipeActivity extends AppCompatActivity {
         imageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+                System.out.println("delete image " + path);
                 imageView.setVisibility(View.GONE);
-                recipe.removePic(picsList.get(i));
+                recipe.removePic(path);
                 db.updateRecipe(recipeName, recipe);
                 picsList = recipe.getPicsList();
                 return true;

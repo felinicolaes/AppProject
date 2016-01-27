@@ -115,3 +115,14 @@
 		- editrecipe ->listview, then delete edited/made recipe, click back and try to edit it
 	- piclist seeRecipeActivity still has printstatements
 	- finish report and copyright readme
+
+##Day 18
+- Resized images
+- Fixed borders
+- Overwrite back buttons
+- Removed bug in seeRecipeActivity to do with aftermath of deleting image in imageList
+- Wrote report
+- TO DO
+	- make max amount of pics?
+	- copyright readme
+	- delete all printstatements

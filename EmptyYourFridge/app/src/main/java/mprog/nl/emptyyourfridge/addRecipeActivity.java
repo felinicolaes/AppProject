@@ -180,23 +180,27 @@ public class addRecipeActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int item) {
                 // Take a new picture with the camera app
                 if (options[item].equals("Take Photo")) {
+                    //Go to camera and take the picture
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                    //Go to seperate function to edit, save etc. made picture
                     if (textKind.equals("recipe")) {
                         startActivityForResult(intent, 1);
                     } else {
                         startActivityForResult(intent, 3);
                     }
-                // Choose a picture from the gallery to add
+                    // Choose a picture from the gallery to add
                 } else if (options[item].equals("Choose from Gallery")) {
+                    //Go to gallery and choose picture
                     Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    //Go to seperate function to edit, save etc. chosen picture
                     if (textKind.equals("recipe")) {
                         startActivityForResult(intent, 2);
                     } else {
                         startActivityForResult(intent, 4);
                     }
-                // Don't add any pictures
+                    // Don't add any pictures
                 } else if (options[item].equals("Cancel")) {
                     dialog.dismiss();
                 }
@@ -263,7 +267,7 @@ public class addRecipeActivity extends AppCompatActivity {
         }
     }
 
-    /* Add picture by referring to the camera-app and save it
+    /* Get taken picture and save it
      */
     public void addCameraPicture(int requestCode) {
         File f = new File(Environment.getExternalStorageDirectory().toString());
@@ -274,45 +278,18 @@ public class addRecipeActivity extends AppCompatActivity {
             }
         }
         try {
-            BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-            Bitmap bigmap = BitmapFactory.decodeFile(f.getAbsolutePath(), bitmapOptions);
-            //Make bitmap smaller
-            int height = (int) Math.round(bigmap.getHeight()*0.3);
-            int width = (int) Math.round(bigmap.getWidth()*0.3);
-
-            //Save bitmap in EmptyYourFridge map
-            Bitmap bitmap = Bitmap.createScaledBitmap(bigmap, width, height, true);
-            String path = android.os.Environment.getExternalStorageDirectory()
-                    + File.separator + "EmptyYourFridge";
-            File directory = new File(path);
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
-            f.delete();
-            OutputStream outFile = null;
-            File file = new File(path, String.valueOf(System.currentTimeMillis()) + ".jpg");
-
             //Add picture to gallery
             Recipe recipe = db.getRecipe(recipeName);
             if(requestCode == 1) {
+                File file = resizeAndSaveImg(f.getAbsolutePath(), 500);
                 recipe.setRecipe(file.toString());
             } else {
+                File file = resizeAndSaveImg(f.getAbsolutePath(), 250);
                 recipe.addPic(file.toString());
             }
             db.updateRecipe(recipeName, recipe);
 
-            try {
-                outFile = new FileOutputStream(file);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 85, outFile);
-                outFile.flush();
-                outFile.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            f.delete();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -327,17 +304,56 @@ public class addRecipeActivity extends AppCompatActivity {
         Cursor c = getContentResolver().query(selectedImage, filePath, null, null, null);
         c.moveToFirst();
         int columnIndex = c.getColumnIndex(filePath[0]);
-        String file = c.getString(columnIndex);
-        c.close();
 
         // Add picture to recipe
         Recipe recipe = db.getRecipe(recipeName);
         if(requestCode == 2) {
+            File file = resizeAndSaveImg(c.getString(columnIndex), 500);
             recipe.setRecipe(file.toString());
         } else {
+            File file = resizeAndSaveImg(c.getString(columnIndex), 250);
             recipe.addPic(file.toString());
         }
         db.updateRecipe(recipeName, recipe);
+
+        c.close();
+    }
+
+    /* Resizes the bitmap and saves it in the EmptyYourFridge map
+     */
+    public File resizeAndSaveImg(String oldPath, int size) {
+        BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+        Bitmap bigmap = BitmapFactory.decodeFile(oldPath, bitmapOptions);
+
+        //Make bitmap smaller
+        int width = size;
+        int height = Math.round(bigmap.getHeight()*width/bigmap.getWidth());
+
+        //Find place to store bitmap in EmptyYourFridge map
+        Bitmap bitmap = Bitmap.createScaledBitmap(bigmap, width, height, true);
+        String path = android.os.Environment.getExternalStorageDirectory()
+                + File.separator + "EmptyYourFridge";
+        File directory = new File(path);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        //Actually store bitmap
+        File file = new File(path, String.valueOf(System.currentTimeMillis()) + ".jpg");
+        try {
+            OutputStream outFile = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 85, outFile);
+            outFile.flush();
+            outFile.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return file;
     }
 
     /* If addExtraPictButton clicked, add an extra picture to the recipe

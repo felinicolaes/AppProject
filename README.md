@@ -11,11 +11,11 @@
 - Adding optional ingredients
 
 #### Screen shots
-![main](/doc/mainActivity.JPEG)
-![recipeList](/doc/recipeList.JPEG)
-![seeRecipe](/doc/seeRecipe.JPEG)
-![addRecipe](/doc/addRecipe.JPEG)
-![addIngredient](/doc/addIngredient.JPEG)
+![main](/doc/mainActivity.jpeg)
+![recipeList](/doc/recipeList.jpeg)
+![seeRecipe](/doc/seeRecipe.jpeg)
+![addRecipe](/doc/addRecipe.jpeg)
+![addIngredient](/doc/addIngredient.jpeg)
 
 ##### Copyright
 

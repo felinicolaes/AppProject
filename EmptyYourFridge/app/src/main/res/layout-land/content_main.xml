@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="mprog.nl.emptyyourfridge.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Long-press an item to remove it"
+                android:id="@+id/removeText"
+                android:layout_alignBottom="@+id/plusIngredient"
+                android:layout_toStartOf="@+id/plusIngredient" />
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="+"
+                android:id="@+id/plusIngredient"
+                android:onClick="addIngredientButton"
+                android:background="@drawable/rounded_button"
+                android:layout_alignParentTop="true"
+                android:layout_alignEnd="@+id/ingredients"
+                android:textSize="18sp"
+                android:layout_marginLeft="10dp" />
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:id="@+id/ingredients"
+                android:layout_weight="2"
+                android:layout_alignParentTop="false"
+                android:layout_below="@+id/removeText"
+                android:layout_above="@+id/searchButton" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Filter on ingredient"
+                android:id="@+id/filterText"
+                android:layout_above="@+id/removeText"
+                android:layout_toStartOf="@+id/plusIngredient" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:text="Filter recipes"
+                android:id="@+id/searchButton"
+                android:onClick="searchButton"
+                android:background="@drawable/rounded_button"
+                android:layout_above="@+id/addRecipeButton"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="5dp" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:text="Create new recipe"
+                android:id="@+id/addRecipeButton"
+                android:onClick="addRecipeButton"
+                android:background="@drawable/rounded_button"
+                android:layout_alignParentBottom="true"
+                android:layout_alignStart="@+id/searchButton" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

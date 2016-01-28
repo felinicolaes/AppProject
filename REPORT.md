@@ -24,6 +24,8 @@ The code is divided into several classes and xml-files. All classes, except for 
 - IngredientList: is a custom ListView showing ingredients with their amounts and optionality
 - Recipe: is a custom object containing all information about a recipe
 
+Each activity has an xml file and the MainActivity, seeRecipeActivity and addRecipeActivity each have a seperate xml file for portrait mode and landscape mode, to optimize the user experience.
+
 ###Challenges
 While making this app, I ran into several challenges, the first of which had to do with the database. SQLlite does not support ArrayLists, while these are used in this app for storing pictures and strings. This problem was solved by using json. Json is a data format used to encode ArrayLists into Strings.
 
@@ -38,7 +40,7 @@ This decision was made because seperating the ingredient and amount into two dif
 When adding optional extra images, I decided to work with imageviews in a linearlayout in a horizontal scrollview. The imageviews are made dynamically for all the pictures that have to be shown. 
 
 Showing an unlimited number of images, brought some problems, like out of memory errors. I also had problems with the dynamic imageviews where the borders would be way too large for no clear reason.
-If I had to do this project again, I wouldn't have chosen for showing all pictures in a scrollable view. I would have probably chosen to show just one picture at a time, with a previous- and nextbutton. This would mean the imageviews would not have to made dynamically and because only one picture is shown, there wouldn't be any out of memory errors. Currently, all images in this scrollview are resized a lot before saving them, which might make them hard to read. I chose to resize the 'main' recipe image to a larger size then the images in the scrollview, since it is more important for this image to be readable.
+If I had to do this project again, I wouldn't have chosen for showing all pictures in a scrollable view. I would have probably chosen to show just one picture at a time, with a previous- and nextbutton. This would mean the imageviews would not have to made dynamically and because only one picture is shown, there wouldn't be any out of memory errors. Currently, all images in this scrollview are resized a lot before saving them, which might make them hard to read. I chose to resize the 'main' recipe image to a larger size then the images in the scrollview, since it is more important for this image to be readable. The user can also no longer add more than 25 images to a single recipe, because why would you need 25 pictures of a plate with food?
 <br />  <br />
 
 I also changed the design of the mainActivity, after asking several people how to make my app design clearer. I changed the placement of several buttons as well as making the text on the buttons easier to understand.
@@ -47,3 +49,5 @@ I also changed the design of the mainActivity, after asking several people how t
 Another problem I encountered was an error if a certain order of activities was chosen. If you went from the seeRecipeActivity to the recipeListActivity, deleted this recipe, then clicked the android back-button (so you will go back to the seeRecipeActivity of the deleted recipe) and then click the edit-button. This means you are now attempting to edit a recipe that no longer exists. This would quit the app.
 
 I overwrote the android back-button, so the user will always go back to the mainActivity when pressing this button. This does mean the user will no longer be able to press the back-button to go back to a previously shown recipe.
+
+

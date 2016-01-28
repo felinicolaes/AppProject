@@ -12,8 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
@@ -121,36 +119,37 @@ public class seeRecipeActivity extends AppCompatActivity {
      */
     private void addImagesToTheGallery() {
         System.out.println("in functie");
-        picsList = recipe.getPicsList();
-        System.out.println("pics geget");
-        LinearLayout layout = (LinearLayout) findViewById(R.id.imageGallery);
-        System.out.println("layout geget");
-        System.out.println("size piclist " + picsList.size());
+        ArrayList<String> oldPicsList = recipe.getPicsList();
+        picsList = new ArrayList<String>();
 
-        System.out.println("list is " + picsList);
+        //delete all pictures that are not found from recipe
+        for (String pic:oldPicsList) {
+            Bitmap bitmap = BitmapFactory.decodeFile(pic, new BitmapFactory.Options());
+            if (bitmap != null) {
+                picsList.add(pic);
+            }
+        }
+        recipe.setPics(picsList);
+        db.updateRecipe(recipe.getName(), recipe);
+
+        //set all pictures into the layout
+        LinearLayout layout = (LinearLayout) findViewById(R.id.imageGallery);
         for (int i = 0; i < picsList.size(); i++) {
-            System.out.println("set pic number "+i);
             layout.addView(getImageView(i));
-            System.out.println("Found?");
         }
     }
 
     /* Make an ImageView to show the extra image in
      */
     public ImageView getImageView(int i){
-        System.out.println("begin hier");
         final ImageView imageView = new ImageView(this);
         imageView.setId(i);
         BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-        System.out.println("misschien hier?");
         Bitmap bitmap = BitmapFactory.decodeFile(picsList.get(i), bitmapOptions);
-        System.out.println("hier?");
+
         imageView.setImageBitmap(bitmap);
         imageView.setAdjustViewBounds(true);
-        System.out.println("of hier?");
-
         setClickListeners(imageView, picsList.get(i));
-        System.out.println("anders hier?");
 
         return imageView;
     }

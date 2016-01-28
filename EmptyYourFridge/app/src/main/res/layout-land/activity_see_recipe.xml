@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="mprog.nl.emptyyourfridge.addRecipeActivity">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp">
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="edit"
+                android:id="@+id/edit"
+                android:background="@drawable/rounded_button"
+                android:onClick="editButton"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back to list"
+                android:id="@+id/back"
+                android:onClick="backButton"
+                android:background="@drawable/rounded_button"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/name"
+                android:text="name"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="25sp"
+                android:hint="recipe name"
+                android:textStyle="bold"
+                android:layout_below="@+id/back"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Ingredients"
+                android:id="@+id/ingredientsText"
+                android:layout_below="@+id/name"
+                android:layout_alignParentStart="true"
+                android:paddingTop="10dp" />
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:listSelector="@android:color/transparent"
+                android:layout_height="fill_parent"
+                android:id="@+id/ingredients"
+                android:longClickable="true"
+                android:layout_below="@+id/ingredientsText"
+                android:layout_alignParentStart="true" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/scrollView"
+            android:layout_below="@+id/ingredients"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/back"
+            android:layout_alignEnd="@+id/ingredients"
+            android:paddingTop="10dp"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Recipe"
+                    android:id="@+id/recipeText"
+                    android:layout_alignParentStart="true" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:id="@+id/recipeImage"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/recipeText"
+                    android:clickable="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:id="@+id/recipe"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/recipeImage" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Extras"
+                    android:id="@+id/extraText"
+                    android:paddingTop="10dp"
+                    android:layout_below="@+id/recipe"
+                    android:layout_alignParentStart="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:id="@+id/notes"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/extraText" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/notes">
+
+                    <LinearLayout
+                        android:id="@+id/imageGallery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="80dp"
+                        android:orientation="horizontal"
+                        android:paddingTop="2dp"
+                        android:dividerPadding="5dp" />
+                </HorizontalScrollView>
+
+            </RelativeLayout>
+
+        </ScrollView>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/largeImage"
+        android:layout_alignParentEnd="true"
+        android:clickable="true"/>
+
+
+</RelativeLayout>

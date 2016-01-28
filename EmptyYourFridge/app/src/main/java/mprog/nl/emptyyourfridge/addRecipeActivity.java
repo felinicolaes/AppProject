@@ -212,10 +212,12 @@ public class addRecipeActivity extends AppCompatActivity {
     /* If addRecipeTextButton clicked, add a recipe using text
      */
     public void addRecipeTextButton(View view) {
-        if(checkIfLegalName() && db.getRecipe(nameText.getText().toString()).getRecipe().endsWith(".jpg")) {
-            sureChangeRecipe("text");
-        } else {
-            addRecipeText();
+        if(checkIfLegalName()) {
+            if (db.getRecipe(nameText.getText().toString()).getRecipe().endsWith(".jpg")) {
+                sureChangeRecipe("text");
+            } else {
+                addRecipeText();
+            }
         }
     }
 
@@ -260,6 +262,8 @@ public class addRecipeActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
+            prevActivity = "Camera";
+            recipeName = nameText.getText().toString();
             //Add a picture from the camera
             if (requestCode == 1 || requestCode == 3) {
                 addCameraPicture(requestCode);
@@ -361,7 +365,10 @@ public class addRecipeActivity extends AppCompatActivity {
     /* If addExtraPictButton clicked, add an extra picture to the recipe
      */
     public void addExtraPictButton(View view) {
-        if(checkIfLegalName()) {
+        if(db.getRecipe(recipeName).getPicsList().size() >= 25) {
+            Toast.makeText(addRecipeActivity.this, "You cannot add more than 25 pictures to a single recipe, " +
+                    "please remove some by long clicking them on the recipe page.", Toast.LENGTH_SHORT).show();
+        } else if(checkIfLegalName()) {
             addRecipePict("extra");
         }
     }

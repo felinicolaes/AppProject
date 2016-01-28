@@ -129,3 +129,11 @@
 
 ##Day 19
 - Made all code even nicer to read
+- Made seperate landscapemode xml seeRecipeActivity, mainActivity, addRecipeActivity
+- Finishing touches on report, readme and license
+- Now deletes nonexistent pictures from database
+- Can no longer add more than 25 pictures to a single recipe
+- Removed sneaky bug where recipeName was not saved correctly
+- Check out of memory error: can handle at least 25 pictures of 250px width in the imageGallery/horizontal view and 1 of 500px width as main recipe picture
+- TO DO:
+	- add logo in both mainactivity and main app picture

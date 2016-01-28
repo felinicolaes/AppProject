@@ -70,18 +70,18 @@
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
-                android:text="Filter recipes"
+                android:text="Search recipes on ingredients"
                 android:id="@+id/searchButton"
                 android:onClick="searchButton"
                 android:background="@drawable/rounded_button"
                 android:layout_above="@+id/addRecipeButton"
                 android:layout_alignParentStart="true"
-                android:layout_marginBottom="5dp" />
+                android:layout_marginBottom="15dp" />
 
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
-                android:text="Create new recipe"
+                android:text="Add new recipe"
                 android:id="@+id/addRecipeButton"
                 android:onClick="addRecipeButton"
                 android:background="@drawable/rounded_button"

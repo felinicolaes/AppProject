@@ -20,12 +20,13 @@
         android:layout_marginRight="30dp" />
 
     <EditText
-        android:layout_width="250dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/ingredient"
         android:inputType="textPersonName"
         android:hint="ingredient"
         android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:layout_toEndOf="@+id/amount" />
 
     <ListView

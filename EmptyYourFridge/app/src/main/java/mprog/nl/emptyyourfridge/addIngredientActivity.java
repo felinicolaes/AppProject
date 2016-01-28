@@ -40,8 +40,8 @@ public class addIngredientActivity extends AppCompatActivity {
         prevActivity = extra.getString("ActivityName");
         checkBox = (CheckBox)findViewById(R.id.checkBox);
         if (prevActivity.equals("MainActivity")) {
-            checkBox.setVisibility(View.INVISIBLE);
-            editAmount.setVisibility(View.INVISIBLE);
+            checkBox.setVisibility(View.GONE);
+            editAmount.setVisibility(View.GONE);
         } else {
             recipeName = extra.getString("RecipeName");
         }

@@ -118,7 +118,6 @@ public class seeRecipeActivity extends AppCompatActivity {
     /* Get all extra images and show them in a gallery-like layout
      */
     private void addImagesToTheGallery() {
-        System.out.println("in functie");
         ArrayList<String> oldPicsList = recipe.getPicsList();
         picsList = new ArrayList<String>();
 
@@ -171,7 +170,6 @@ public class seeRecipeActivity extends AppCompatActivity {
         imageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                System.out.println("delete image " + path);
                 imageView.setVisibility(View.GONE);
                 recipe.removePic(path);
                 db.updateRecipe(recipeName, recipe);

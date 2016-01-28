@@ -240,13 +240,11 @@ public class addRecipeActivity extends AppCompatActivity {
             Toast.makeText(addRecipeActivity.this, "This name is taken, please change it", Toast.LENGTH_SHORT).show();
             return false;
         } else if (nameText.getText().toString().equals(recipeName)) {
-            System.out.println("nothing changed");
             return true;
         } else if (prevActivity.equals("MainActivity")){
             db.addRecipe(new Recipe(nameText.getText().toString(), "", ""));
             return true;
         } else {
-            System.out.println("recipe name changed");
             Recipe recipe = db.getRecipe(recipeName);
             recipe.setName(nameText.getText().toString());
             db.updateRecipe(recipeName, recipe);

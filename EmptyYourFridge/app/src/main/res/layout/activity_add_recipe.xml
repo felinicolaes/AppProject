@@ -86,9 +86,9 @@
         android:id="@+id/addRecipeText"
         android:background="@drawable/rounded_button"
         android:onClick="addRecipeTextButton"
-        android:layout_alignBottom="@+id/addRecipePict"
         android:layout_toEndOf="@+id/addRecipePict"
-        android:layout_marginLeft="30dp" />
+        android:layout_marginLeft="30dp"
+        android:layout_below="@+id/recipeText" />
 
     <TextView
         android:layout_width="wrap_content"

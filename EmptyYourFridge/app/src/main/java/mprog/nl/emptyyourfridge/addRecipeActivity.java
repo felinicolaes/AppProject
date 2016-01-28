@@ -242,6 +242,7 @@ public class addRecipeActivity extends AppCompatActivity {
         } else if (nameText.getText().toString().equals(recipeName)) {
             return true;
         } else if (prevActivity.equals("MainActivity")){
+            recipeName = nameText.getText().toString();
             db.addRecipe(new Recipe(nameText.getText().toString(), "", ""));
             return true;
         } else {

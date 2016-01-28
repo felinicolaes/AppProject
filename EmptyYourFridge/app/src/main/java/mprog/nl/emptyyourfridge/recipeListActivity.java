@@ -144,7 +144,6 @@ public class recipeListActivity extends AppCompatActivity {
     /* Add some default recipes if no recipes were present in the database
      */
     public void addRecipes(){
-        ArrayList<String> empty = new ArrayList<String>();
         db.addRecipe(new Recipe("Broodje gezond", "Leg alles op broodje, klaar!", "Lekker lekker",
                 makeArrayList(new String[]{"brood", "kaas", "sla"}), makeArrayList(new String[]{"2 snee", "1 plak", ""}),
                 makeArrayList(new String[]{"ham"}), makeArrayList(new String[]{"1 plak"}) ) );

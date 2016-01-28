@@ -18,6 +18,17 @@
 ![addIngredient](/doc/addIngredient.jpeg)
 
 ##### Copyright
+Copyright (C) 2016 Feli Nicolaes
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the [GNU General Public License](/LICENSE.md) as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
 ##### External code used
 [Tutorial used for capturing and selecting image in addRecipeActivity.java](http://www.c-sharpcorner.com/UploadFile/e14021/capture-image-from-camera-and-selecting-image-from-gallery-o/)

@@ -212,7 +212,9 @@ public class addRecipeActivity extends AppCompatActivity {
     /* If addRecipeTextButton clicked, add a recipe using text
      */
     public void addRecipeTextButton(View view) {
-        if(checkIfLegalName()) {
+        if(checkIfLegalName() && db.getRecipe(nameText.getText().toString()).getRecipe().endsWith(".jpg")) {
+            sureChangeRecipe("text");
+        } else {
             addRecipeText();
         }
     }

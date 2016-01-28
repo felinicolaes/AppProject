@@ -126,3 +126,6 @@
 	- make max amount of pics?
 	- copyright readme
 	- delete all printstatements
+
+##Day 19
+- Made all code even nicer to read

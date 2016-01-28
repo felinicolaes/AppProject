@@ -6,13 +6,14 @@ import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
@@ -105,10 +106,12 @@ public class seeRecipeActivity extends AppCompatActivity {
         Bitmap bitmap = BitmapFactory.decodeFile(recipe.getRecipe(), new BitmapFactory.Options());
 
         smallImage.setImageBitmap(bitmap);
-        largeImage.setImageBitmap(bitmap);
+
         smallImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bitmap bitmap = BitmapFactory.decodeFile(recipe.getRecipe(), new BitmapFactory.Options());
+                largeImage.setImageBitmap(bitmap);
                 largeImage.setVisibility(View.VISIBLE);
             }
         });
@@ -128,20 +131,26 @@ public class seeRecipeActivity extends AppCompatActivity {
         for (int i = 0; i < picsList.size(); i++) {
             System.out.println("set pic number "+i);
             layout.addView(getImageView(i));
+            System.out.println("Found?");
         }
     }
 
     /* Make an ImageView to show the extra image in
      */
     public ImageView getImageView(int i){
+        System.out.println("begin hier");
         final ImageView imageView = new ImageView(this);
         imageView.setId(i);
         BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+        System.out.println("misschien hier?");
         Bitmap bitmap = BitmapFactory.decodeFile(picsList.get(i), bitmapOptions);
+        System.out.println("hier?");
         imageView.setImageBitmap(bitmap);
         imageView.setAdjustViewBounds(true);
+        System.out.println("of hier?");
 
         setClickListeners(imageView, picsList.get(i));
+        System.out.println("anders hier?");
 
         return imageView;
     }

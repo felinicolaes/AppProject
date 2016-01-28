@@ -174,7 +174,7 @@ public class Recipe {
     }
 
     public void setPics(ArrayList<String> pictArray) {
-        this.pictArray = posGson.toJson(pictArray);;
+        this.pictArray = posGson.toJson(pictArray);
     }
 
     public void setNotes(String notes) {
